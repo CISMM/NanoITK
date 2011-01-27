@@ -26,21 +26,24 @@ namespace Functor
 {
 
 
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
+template< class TParamRep >
+OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
 ::OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand()
 {
 }
 
 
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
+template< class TParamRep >
+OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
 ::~OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand()
 {
 }
 
 
+template< class TParamRep >
 template< class TSource >
 void
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
+OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
 ::CopySettings(const TSource* source)
 {
   this->m_EmissionWavelength                    = source->GetEmissionWavelength();
@@ -59,29 +62,30 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
 
   this->m_K = 2.0 * itk::Math::pi / (this->m_EmissionWavelength * 1e-9);
 
-  double NA = this->m_NumericalAperture;
-  double M  = this->m_Magnification;
+  ParameterRepType NA = this->m_NumericalAperture;
+  ParameterRepType M  = this->m_Magnification;
 
   // Assumes classical 160mm tube length.
   this->m_A = 0.160 * NA / sqrt(M*M - NA*NA);
 }
 
 
+template< class TParamRep >
 inline
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::ComplexType
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
-::OPD(double rho, double dz) const
+typename OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >::ComplexType
+OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
+::OPD(ParameterRepType rho, ParameterRepType dz) const
 {
-  double NA      = this->m_NumericalAperture;
-  double n_oil_d = this->m_DesignImmersionOilRefractiveIndex;
-  double n_oil   = this->m_ActualImmersionOilRefractiveIndex;
-  double t_oil_d = this->m_DesignImmersionOilThickness * 1e-6;
-  double n_s     = this->m_ActualSpecimenLayerRefractiveIndex;
-  double t_s     = this->m_ActualPointSourceDepthInSpecimenLayer * 1e-6;
-  double n_g_d   = this->m_DesignCoverSlipRefractiveIndex;
-  double n_g     = this->m_ActualCoverSlipRefractiveIndex;
-  double t_g_d   = this->m_DesignCoverSlipThickness * 1e-6;
-  double t_g     = this->m_ActualCoverSlipThickness * 1e-6;
+  ParameterRepType NA      = this->m_NumericalAperture;
+  ParameterRepType n_oil_d = this->m_DesignImmersionOilRefractiveIndex;
+  ParameterRepType n_oil   = this->m_ActualImmersionOilRefractiveIndex;
+  ParameterRepType t_oil_d = this->m_DesignImmersionOilThickness * 1e-6;
+  ParameterRepType n_s     = this->m_ActualSpecimenLayerRefractiveIndex;
+  ParameterRepType t_s     = this->m_ActualPointSourceDepthInSpecimenLayer * 1e-6;
+  ParameterRepType n_g_d   = this->m_DesignCoverSlipRefractiveIndex;
+  ParameterRepType n_g     = this->m_ActualCoverSlipRefractiveIndex;
+  ParameterRepType t_g_d   = this->m_DesignCoverSlipThickness * 1e-6;
+  ParameterRepType t_g     = this->m_ActualCoverSlipThickness * 1e-6;
 
   ComplexType t1 = this->OPDTerm(rho, n_s,     t_s);
   ComplexType t2 = this->OPDTerm(rho, n_g,     t_g);
@@ -95,17 +99,18 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
 }
 
 
+template< class TParamRep >
 inline
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::ComplexType
-OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
-::OPDTerm(double rho, double n, double t) const
+typename OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >::ComplexType
+OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
+::OPDTerm(ParameterRepType rho, ParameterRepType n, ParameterRepType t) const
 {
-  double NA    = this->m_NumericalAperture;
-  double n_oil = this->m_ActualImmersionOilRefractiveIndex;
-  double NA_rho_sq = NA*NA*rho*rho;
-  double NA_rho_over_n_sq = NA_rho_sq/(n*n);
-  double n_oil_over_n_sq = (n_oil*n_oil) / (n*n);
-  double NA_rho_over_n_oil_sq = NA_rho_sq/(n_oil*n_oil);
+  ParameterRepType NA    = this->m_NumericalAperture;
+  ParameterRepType n_oil = this->m_ActualImmersionOilRefractiveIndex;
+  ParameterRepType NA_rho_sq = NA*NA*rho*rho;
+  ParameterRepType NA_rho_over_n_sq = NA_rho_sq/(n*n);
+  ParameterRepType n_oil_over_n_sq = (n_oil*n_oil) / (n*n);
+  ParameterRepType NA_rho_over_n_oil_sq = NA_rho_sq/(n_oil*n_oil);
 
   ComplexType sq1(1.0 - NA_rho_over_n_sq);
   sq1 = sqrt(sq1);

@@ -30,10 +30,11 @@ namespace Functor
 {
 
 class GibsonLanniPointSpreadFunctionIntegrand :
-    public OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
+    public OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< double >
 {
 public:
-  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::ComplexType ComplexType;
+  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< double > Superclass;
+  typedef Superclass::ComplexType ComplexType;
 
   ComplexType operator()(double r, double z, double rho) const
   {

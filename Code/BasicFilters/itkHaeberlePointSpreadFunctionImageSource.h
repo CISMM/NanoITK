@@ -28,16 +28,16 @@ namespace itk
 namespace Functor {
 
 class HaeberlePointSpreadFunctionCommon :
-    public OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
+    public OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< double >
 {
 public:
-
-  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::ComplexType ComplexType;
+  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< double > Superclass;
+  typedef Superclass::ComplexType ComplexType;
 
   template< class TSource >
   void CopySettings( const TSource* source )
   {
-    OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::CopySettings(source);
+    Superclass::CopySettings(source);
 
     // k_0 is not defined in the paper. I'm assuming it is the
     // wavenumber of the emission wavelength in vacuum.
