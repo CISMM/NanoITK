@@ -117,8 +117,8 @@ public:
   typedef IdentityTransform<double>        TransformType;
   typedef typename TransformType::Pointer  TransformTypePointer;
 
-  typedef InterpolateImageFunction<FixedImageType, double>  InterpolatorType;
-  typedef typename InterpolatorType::Pointer                InterpolatorTypePointer;
+  typedef InterpolateImageFunction<FixedImageType, double> InterpolatorType;
+  typedef typename InterpolatorType::Pointer               InterpolatorTypePointer;
 
   /** Connect the Fixed Image.  */
   itkSetConstObjectMacro(FixedImage, FixedImageType);
@@ -157,6 +157,11 @@ public:
 
   /** Get the delegate ImageToImageMetric. */
   itkGetConstObjectMacro( DelegateMetric, DelegateMetricType );
+
+  /** Set the step size for estimating the derivative via forward
+   * differences. */
+  itkSetMacro( DerivativeStepSize, double );
+  itkGetMacro( DerivativeStepSize, double );
 
   /** Get the derivative of the cost function (calling this returns an
       undefined derivative); */
@@ -204,6 +209,9 @@ protected:
 
   /** Mask for parameters. */
   ParametersMaskType        m_ParametersMask;
+
+  /** Step size for derivative computation. */
+  double m_DerivativeStepSize;
 
 private:
   ImageToParametricImageSourceMetric(const Self&); //purposely not implemented

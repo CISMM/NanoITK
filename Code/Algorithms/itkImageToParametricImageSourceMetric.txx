@@ -145,7 +145,20 @@ void
 ImageToParametricImageSourceMetric<TFixedImage,TMovingImageSource>
 ::GetDerivative(const ParametersType& parameters, DerivativeType& derivative) const
 {
-  // Do nothing.
+  // Forward differences approximation to the gradient.
+  double h = m_DerivativeStepSize;
+  double value = GetValue(parameters);
+  ParametersType forwardParameters = parameters;
+
+  derivative = DerivativeType(GetNumberOfParameters());
+
+  for (unsigned int i = 0; i < GetNumberOfParameters(); i++)
+    {
+    double previousParameterValue = forwardParameters[i];
+    forwardParameters[i] += h;
+    derivative[i] = (GetValue(forwardParameters) - value) / h;
+    forwardParameters[i] = previousParameterValue;
+    }
 }
 
 
