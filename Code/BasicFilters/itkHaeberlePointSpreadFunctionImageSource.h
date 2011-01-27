@@ -18,7 +18,8 @@
 #ifndef __itkHaeberlePointSpreadFunctionImageSource_h
 #define __itkHaeberlePointSpreadFunctionImageSource_h
 
-#include "itkDesignAndActualConditionsMicroscopePointSpreadFunctionImageSource.h"
+#include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource.h"
+#include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand.h"
 #include "itkNumericTraits.h"
 
 namespace itk
@@ -27,16 +28,16 @@ namespace itk
 namespace Functor {
 
 class HaeberlePointSpreadFunctionCommon :
-    public DesignAndActualConditionsMicroscopePointSpreadFunctionIntegrand
+    public OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand
 {
 public:
 
-  typedef DesignAndActualConditionsMicroscopePointSpreadFunctionIntegrand::ComplexType ComplexType;
+  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::ComplexType ComplexType;
 
   template< class TSource >
   void CopySettings( const TSource* source )
   {
-    DesignAndActualConditionsMicroscopePointSpreadFunctionIntegrand::CopySettings(source);
+    OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand::CopySettings(source);
 
     // k_0 is not defined in the paper. I'm assuming it is the
     // wavenumber of the emission wavelength in vacuum.
@@ -188,12 +189,12 @@ public:
  */
 template <class TOutputImage>
 class ITK_EXPORT HaeberlePointSpreadFunctionImageSource :
-    public DesignAndActualConditionsMicroscopePointSpreadFunctionImageSource< TOutputImage >
+    public OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource< TOutputImage >
 {
 public:
   /** Standard class typedefs. */
   typedef HaeberlePointSpreadFunctionImageSource Self;
-  typedef DesignAndActualConditionsMicroscopePointSpreadFunctionImageSource< TOutputImage >
+  typedef OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource< TOutputImage >
     Superclass;
   typedef SmartPointer<Self>                     Pointer;
   typedef SmartPointer<const Self>               ConstPointer;

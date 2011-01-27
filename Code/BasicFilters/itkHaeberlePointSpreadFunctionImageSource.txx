@@ -87,12 +87,6 @@ HaeberlePointSpreadFunctionImageSource<TOutputImage>
     PointType point;
     image->TransformIndexToPhysicalPoint(index, point);
 
-    // Shift the center of the point
-    for ( unsigned int i = 0; i < point.Size(); i++ )
-      {
-      point[i] -= this->m_PointCenter[i];
-      }
-
     it.Set( ComputeSampleValue( point ) );
     progress.CompletedPixel();
     }
@@ -126,12 +120,12 @@ HaeberlePointSpreadFunctionImageSource<TOutputImage>
   // integral computable.
   double alpha = std::min(asin(this->m_NumericalAperture / this->m_ActualImmersionOilRefractiveIndex),
                           asin(this->m_ActualSpecimenLayerRefractiveIndex / this->m_ActualImmersionOilRefractiveIndex));
-  ComplexType I0ill = IntegrateFunctor(this->m_I0illFunctor, 0.0, alpha,
-                                       20, x_o, y_o, z_o);
-  ComplexType I1ill = IntegrateFunctor(this->m_I1illFunctor, 0.0, alpha,
-                                       20, x_o, y_o, z_o);
-  ComplexType I2ill = IntegrateFunctor(this->m_I2illFunctor, 0.0, alpha,
-                                       20, x_o, y_o, z_o);
+  ComplexType I0ill = Integrate(this->m_I0illFunctor, 0.0, alpha,
+                                20, x_o, y_o, z_o);
+  ComplexType I1ill = Integrate(this->m_I1illFunctor, 0.0, alpha,
+                                20, x_o, y_o, z_o);
+  ComplexType I2ill = Integrate(this->m_I2illFunctor, 0.0, alpha,
+                                20, x_o, y_o, z_o);
 
   // Return a weighted sum of the squared magnitudes of the three
   // integral values.

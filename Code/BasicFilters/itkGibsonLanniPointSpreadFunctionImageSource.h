@@ -98,24 +98,6 @@ public:
   /** Method for creation through the object factory. */
   itkNewMacro(Self);
 
-  typedef typename Superclass::ParametersValueType ParametersValueType;
-  typedef typename Superclass::ParametersType      ParametersType;
-
-  /** Set a single parameter value. */
-  virtual void SetParameter(unsigned int index, ParametersValueType value);
-
-  /** Get a single parameter value. */
-  virtual ParametersValueType GetParameter(unsigned int index) const;
-
-  /** Expects the parameters argument to contain values for ALL parameters. */
-  virtual void SetParameters(const ParametersType& parameters);
-
-  /** Gets the full parameters list. */
-  virtual ParametersType GetParameters() const;
-
-  /** Gets the total number of parameters. */
-  virtual unsigned int GetNumberOfParameters() const;
-
 protected:
   GibsonLanniPointSpreadFunctionImageSource();
   ~GibsonLanniPointSpreadFunctionImageSource();
