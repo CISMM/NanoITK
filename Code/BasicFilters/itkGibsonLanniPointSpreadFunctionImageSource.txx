@@ -81,8 +81,20 @@ void
 GibsonLanniPointSpreadFunctionImageSource< TOutputImage >
 ::BeforeThreadedGenerateData()
 {
-  // TODO - need to give each thread a different integrand functor
-  this->m_IntegrandFunctor.CopySettings(this);
+  // Initialize functors
+  for ( size_t i = 0; i < m_IntegrandFunctors.size(); i++)
+    {
+    delete m_IntegrandFunctors[i];
+    m_IntegrandFunctors[i] = NULL;
+    }
+
+  m_IntegrandFunctors.clear();
+  m_IntegrandFunctors.resize(this->GetNumberOfThreads(), NULL);
+  for ( int i = 0; i < this->GetNumberOfThreads(); i++)
+    {
+    m_IntegrandFunctors[i] = new FunctorType();
+    m_IntegrandFunctors[i]->CopySettings(this);
+    }
 }
 
 
@@ -105,7 +117,7 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
     PointType point;
     image->TransformIndexToPhysicalPoint(index, point);
 
-    it.Set( ComputeSampleValue( point ));
+    it.Set( ComputeSampleValue( point, threadId ));
     progress.CompletedPixel();
     }
 }
@@ -115,7 +127,7 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
 template< class TOutputImage >
 double
 GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
-::ComputeSampleValue(typename TOutputImage::PointType& point)
+::ComputeSampleValue(typename TOutputImage::PointType& point, int threadId)
 {
   PixelType px = point[0] * 1e-9;
   PixelType py = point[1] * 1e-9;
@@ -124,13 +136,13 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
   double mag = this->m_Magnification;
 
   // We have to convert to coordinates of the detector points
-  this->m_IntegrandFunctor.m_X = px * mag;
-  this->m_IntegrandFunctor.m_Y = py * mag;
-  this->m_IntegrandFunctor.m_Z = pz; // No conversion needed
+  this->m_IntegrandFunctors[threadId]->m_X = px * mag;
+  this->m_IntegrandFunctors[threadId]->m_Y = py * mag;
+  this->m_IntegrandFunctors[threadId]->m_Z = pz; // No conversion needed
 
   // Return squared magnitude of the integrated value
   return static_cast<PixelType>(
-    norm( Integrate( this->m_IntegrandFunctor, 0.0, 1.0, 20)));
+    norm( this->Integrate( *(m_IntegrandFunctors[threadId]), 0.0, 1.0, 20)));
 }
 
 } // end namespace itk

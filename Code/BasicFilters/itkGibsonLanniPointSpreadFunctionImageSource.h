@@ -19,6 +19,7 @@
 #define __itkGibsonLanniPointSpreadFunctionImageSource_h
 
 #include <complex>
+#include <vector>
 
 #include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource.h"
 #include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand.h"
@@ -109,13 +110,14 @@ protected:
   virtual void ThreadedGenerateData(const RegionType& outputRegionForThread, int threadId );
 
   /** Computes the light intensity at a specified point. */
-  double ComputeSampleValue(PointType& point);
+  double ComputeSampleValue(PointType& point, int threadId);
 
 private:
   GibsonLanniPointSpreadFunctionImageSource(const GibsonLanniPointSpreadFunctionImageSource&); //purposely not implemented
   void operator=(const GibsonLanniPointSpreadFunctionImageSource&); //purposely not implemented
 
-  FunctorType m_IntegrandFunctor;
+  // An array of functors, one for each thread.
+  std::vector<FunctorType *> m_IntegrandFunctors;
 };
 } // end namespace itk
 
