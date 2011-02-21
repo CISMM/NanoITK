@@ -88,7 +88,6 @@ GibsonLanniPointSpreadFunctionImageSource< TOutputImage >
     m_IntegrandFunctors[i] = NULL;
     }
 
-  m_IntegrandFunctors.clear();
   m_IntegrandFunctors.resize(this->GetNumberOfThreads(), NULL);
   for ( int i = 0; i < this->GetNumberOfThreads(); i++)
     {
