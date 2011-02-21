@@ -39,7 +39,7 @@ public:
 
   ComplexType operator()(double rho) const
   {
-    double r = sqrt((m_X*m_X + m_Y*m_Y) / (0.160 + m_Z));
+    double r = sqrt(m_X*m_X + m_Y*m_Y) / (0.160 + m_Z);
     double bessel = j0(m_K * m_A * rho * r);
 
     return bessel * exp(ComplexType(0.0, 1.0) * this->OPD(rho, this->m_Z) * m_K) * rho;
