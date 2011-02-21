@@ -61,6 +61,8 @@ void
 HaeberlePointSpreadFunctionImageSource< TOutputImage >
 ::BeforeThreadedGenerateData()
 {
+  // TODO - need to give each thread a different integrand functor
+
   // Set parameters in the functor
   this->m_I0illFunctor.CopySettings(this);
   this->m_I1illFunctor.CopySettings(this);
@@ -107,9 +109,15 @@ HaeberlePointSpreadFunctionImageSource<TOutputImage>
   double mag = this->m_Magnification;
 
   // We have to convert to coordinates of the detector points
-  double x_o = px * mag;
-  double y_o = py * mag;
-  double z_o = pz; // No conversion needed
+  this->m_I0illFunctor.m_X =
+    this->m_I1illFunctor.m_X =
+    this->m_I2illFunctor.m_X = px * mag;
+  this->m_I0illFunctor.m_Y =
+    this->m_I1illFunctor.m_Y =
+    this->m_I2illFunctor.m_Y = py * mag;
+  this->m_I0illFunctor.m_Z =
+    this->m_I1illFunctor.m_Z =
+    this->m_I2illFunctor.m_Z = pz; // No conversion needed
 
 
   // Using the alpha suggested by the paper (asin(NA / actual
@@ -120,12 +128,9 @@ HaeberlePointSpreadFunctionImageSource<TOutputImage>
   // integral computable.
   double alpha = std::min(asin(this->m_NumericalAperture / this->m_ActualImmersionOilRefractiveIndex),
                           asin(this->m_ActualSpecimenLayerRefractiveIndex / this->m_ActualImmersionOilRefractiveIndex));
-  ComplexType I0ill = Integrate(this->m_I0illFunctor, 0.0, alpha,
-                                20, x_o, y_o, z_o);
-  ComplexType I1ill = Integrate(this->m_I1illFunctor, 0.0, alpha,
-                                20, x_o, y_o, z_o);
-  ComplexType I2ill = Integrate(this->m_I2illFunctor, 0.0, alpha,
-                                20, x_o, y_o, z_o);
+  ComplexType I0ill = Integrate(this->m_I0illFunctor, 0.0, alpha, 20);
+  ComplexType I1ill = Integrate(this->m_I1illFunctor, 0.0, alpha, 20);
+  ComplexType I2ill = Integrate(this->m_I2illFunctor, 0.0, alpha, 20);
 
   // Return a weighted sum of the squared magnitudes of the three
   // integral values.

@@ -112,18 +112,19 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double r, double z, double theta_1) const
+  ComplexType operator()(double theta_1) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
+    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) +
        tii1p(0, n, theta) * tii1p(1, n, theta)*cos(theta[2])) *
       j0(this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, z) * uniqueTerm;
+    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
   }
 
 };
@@ -135,16 +136,17 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double r, double z, double theta_1) const
+  ComplexType operator()(double theta_1) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
+    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
     ComplexType uniqueTerm = tii1p(0, n, theta) * tii1p(1, n, theta) *
       cos(theta[2]) * j1(this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, z) * uniqueTerm;
+    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
   }
 
 };
@@ -156,18 +158,19 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double r, double z, double theta_1) const
+  ComplexType operator()(double theta_1) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
+    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) -
        tii1p(0, n, theta) * tii1p(1, n, theta) * cos(theta[2])) *
       jn(2, this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, z) * uniqueTerm;
+    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
   }
 
 };

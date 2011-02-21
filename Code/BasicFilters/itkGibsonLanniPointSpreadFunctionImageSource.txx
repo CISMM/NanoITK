@@ -81,6 +81,7 @@ void
 GibsonLanniPointSpreadFunctionImageSource< TOutputImage >
 ::BeforeThreadedGenerateData()
 {
+  // TODO - need to give each thread a different integrand functor
   this->m_IntegrandFunctor.CopySettings(this);
 }
 
@@ -123,13 +124,13 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
   double mag = this->m_Magnification;
 
   // We have to convert to coordinates of the detector points
-  double x_o = px * mag;
-  double y_o = py * mag;
-  double z_o = pz; // No conversion needed
+  this->m_IntegrandFunctor.m_X = px * mag;
+  this->m_IntegrandFunctor.m_Y = py * mag;
+  this->m_IntegrandFunctor.m_Z = pz; // No conversion needed
 
   // Return squared magnitude of the integrated value
   return static_cast<PixelType>(
-    norm( Integrate( this->m_IntegrandFunctor, 0.0, 1.0, 20, x_o, y_o, z_o)));
+    norm( Integrate( this->m_IntegrandFunctor, 0.0, 1.0, 20)));
 }
 
 } // end namespace itk

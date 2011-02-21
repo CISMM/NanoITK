@@ -36,11 +36,12 @@ public:
   typedef OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< double > Superclass;
   typedef Superclass::ComplexType ComplexType;
 
-  ComplexType operator()(double r, double z, double rho) const
+  ComplexType operator()(double rho) const
   {
-    double bessel = j0(m_K * m_A * rho * r / (0.160 + z));
+    double r = sqrt((m_X*m_X + m_Y*m_Y) / (0.160 + m_Z));
+    double bessel = j0(m_K * m_A * rho * r);
 
-    return bessel * exp(ComplexType(0.0, 1.0) * this->OPD(rho, z) * m_K) * rho;
+    return bessel * exp(ComplexType(0.0, 1.0) * this->OPD(rho, this->m_Z) * m_K) * rho;
   }
 
 };

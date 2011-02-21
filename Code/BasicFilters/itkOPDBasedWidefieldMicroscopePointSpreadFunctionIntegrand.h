@@ -65,6 +65,11 @@ public:
                         // aperture onto the back focal plane of the
                         // objective lens
 
+  /** Sample coordinates in physical space. */
+  ParameterRepType m_X;
+  ParameterRepType m_Y;
+  ParameterRepType m_Z;
+
 protected:
   /** Computes the optical path difference for a ray terminating at
   *   a normalized distance rho from the center of the back focal

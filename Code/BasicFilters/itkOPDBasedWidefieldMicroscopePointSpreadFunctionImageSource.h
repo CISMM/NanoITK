@@ -148,29 +148,26 @@ protected:
   /** Integrates a one-dimensional complex-valued function defined by
    *  a functor from a to b using 2*m+1 subdivisions. */
   template< class TFunctor >
-  ComplexType Integrate(const TFunctor& functor, double a, double b,
-                        int m, double x, double y, double z)
+  ComplexType Integrate(const TFunctor& functor, double a, double b, int m)
   {
     int n = 2*m + 1;
     double h = 1.0 / static_cast<double>(n-1);
-
-    double r = sqrt(x*x + y*y);
 
     // Initialize accumulator for integration.
     ComplexType sum(0.0, 0.0);
 
     // Compute initial terms in Simpson quadrature method.
-    sum += functor(r, z, a);
-    sum += functor(r, z, b);
+    sum += functor(a);
+    sum += functor(b);
 
     for (int k = 1; k <= m-1; k++)
       {
-      sum += 2.0 * functor(r, z, (2*k)*h);
+      sum += 2.0 * functor((2*k)*h);
       }
 
     for (int k = 1; k <= m; k++)
       {
-      sum += 4.0 * functor(r, z, (2*k-1)*h);
+      sum += 4.0 * functor((2*k-1)*h);
       }
 
     sum *= h / 3.0;
