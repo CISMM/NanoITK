@@ -20,7 +20,7 @@ int PointSetConvolutionImageFilterTest(int argc, char* argv[])
                                                 FilterType;
 
   // This test generates a convolution kernel, a point set containing
-  // two points shifted by different offsets, and validates that the
+  // points shifted by different offsets, and validates that the
   // filter computes the correct value.
 
   // Generate the point set.
@@ -34,9 +34,21 @@ int PointSetConvolutionImageFilterTest(int argc, char* argv[])
   p1[1] = -130.0; // -2 voxels
   p1[2] =  195.0; // 4 voxels
 
+  PointType p2;
+  p2[0] =  22.0;
+  p2[1] = -32.0;
+  p2[2] = 100.0;
+
+  PointType p3;
+  p3[0] = 98.0;
+  p3[1] = -120.0;
+  p3[2] = -80.0;
+
   PointSetType::Pointer pointSet = PointSetType::New();
   pointSet->SetPoint( 0, p0 );
   pointSet->SetPoint( 1, p1 );
+  pointSet->SetPoint( 2, p2 );
+  pointSet->SetPoint( 3, p3 );
 
   // Set parameters of output image
   ImageType::SpacingType outputSpacing;   outputSpacing.Fill(65.0);
