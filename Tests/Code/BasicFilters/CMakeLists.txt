@@ -13,3 +13,11 @@ add_executable( itkGibsonLanniPointSpreadFunctionImageSourceTest
 target_link_libraries( itkGibsonLanniPointSpreadFunctionImageSourceTest
   ${ITK_LIBRARIES}
 )
+
+add_executable( itkPointSetConvolutionImageFilterTest
+  itkPointSetConvolutionImageFilterTest.cxx
+)
+
+target_link_libraries( itkPointSetConvolutionImageFilterTest
+  ${ITK_LIBRARIES}
+)
