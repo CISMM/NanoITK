@@ -65,16 +65,6 @@ PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
 template< class TInputPointSet, class TInputImage, class TOutputImage >
 void
 PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
-::BeforeThreadedGenerateData()
-{
-  const InputImageType* image = this->GetKernelImageInput();
-  m_Interpolator->SetInputImage(image);
-}
-
-
-template< class TInputPointSet, class TInputImage, class TOutputImage >
-void
-PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
 ::GenerateData()
 {
   // Set the image information
@@ -92,6 +82,16 @@ PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
 
   // Call the method defined in the superclass of the superclass
   this->Superclass::Superclass::GenerateData();
+}
+
+
+template< class TInputPointSet, class TInputImage, class TOutputImage >
+void
+PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
+::BeforeThreadedGenerateData()
+{
+  const InputImageType* image = this->GetKernelImageInput();
+  m_Interpolator->SetInputImage(image);
 }
 
 

@@ -90,9 +90,8 @@ protected:
   ~PointSetConvolutionImageFilter();
   void PrintSelf(std::ostream& os, Indent indent) const;
 
-  void BeforeThreadedGenerateData();
-
   void GenerateData();
+  void BeforeThreadedGenerateData();
   void ThreadedGenerateData
   (const OutputImageRegionType & outputRegionForThread, int threadId);
 
