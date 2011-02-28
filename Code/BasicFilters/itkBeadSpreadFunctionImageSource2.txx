@@ -410,7 +410,9 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetZCoordinate(unsigned int index, double coordinate)
 {
+#if 0
   m_Convolver->SetZCoordinate( index, coordinate );
+#endif
 }
 
 
@@ -419,7 +421,11 @@ double
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetZCoordinate(unsigned int index)
 {
+#if 0
   return m_Convolver->GetZCoordinate( index );
+#endif
+
+  return 0.0;
 }
 
 
@@ -428,8 +434,10 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetUseCustomZCoordinates(bool use)
 {
+#if 0
   m_Convolver->SetUseCustomZCoordinates( use );
   this->Modified();
+#endif
 }
 
 
@@ -438,7 +446,11 @@ bool
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetUseCustomZCoordinates()
 {
+#if 0
   return m_Convolver->GetUseCustomZCoordinates();
+#endif
+
+  return false;
 }
 
 
