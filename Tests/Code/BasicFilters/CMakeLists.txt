@@ -21,3 +21,11 @@ add_executable( itkPointSetConvolutionImageFilterTest
 target_link_libraries( itkPointSetConvolutionImageFilterTest
   ${ITK_LIBRARIES}
 )
+
+add_executable( itkBeadSpreadFunctionImageSource2Test
+  itkBeadSpreadFunctionImageSource2Test.cxx
+)
+
+target_link_libraries( itkBeadSpreadFunctionImageSource2Test
+  ${ITK_LIBRARIES}
+)
