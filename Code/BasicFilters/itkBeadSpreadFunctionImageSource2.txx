@@ -130,6 +130,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 {
   if ( radius != m_BeadRadius )
     {
+    this->m_BeadRadius = radius;
     this->RasterizeShape();
     this->Modified();
     }
