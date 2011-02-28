@@ -18,12 +18,12 @@
 #ifndef _itkBeadSpreadFunctionImageSource2_h
 #define _itkBeadSpreadFunctionImageSource2_h
 
+#include "itkCommand.h"
 #include "itkEllipseSpatialObject.h"
 #include "itkParametricImageSource.h"
 #include "itkPointSet.h"
 #include "itkPointSetConvolutionImageFilter.h"
 #include "itkShiftScaleImageFilter.h"
-#include "itkCommand.h"
 
 namespace itk
 {
@@ -79,10 +79,6 @@ public:
     RescaleImageFilterType;
   typedef typename RescaleImageFilterType::Pointer
     RescaleImageFilterPointer;
-  typedef EllipseSpatialObject< TOutputImage::ImageDimension >
-    SphereSpatialObjectType;
-  typedef typename SphereSpatialObjectType::Pointer
-    SphereSpatialObjectPointer;
 
   /** Run-time type information (and related methods). */
   itkTypeMacro(BeadSpreadFunctionImageSource2,ParametricImageSource);
@@ -106,8 +102,8 @@ public:
   const PointType & GetOrigin() const;
 
   /** Set/get the bead radius (in nanometers). */
-  void SetBeadRadius(double radius);
-  double GetBeadRadius() const;
+  itkSetMacro(BeadRadius, double);
+  itkGetConstMacro(BeadRadius, double);
 
   /** Set/get the shear in the X direction. */
   void SetShearX(double shear);
@@ -185,6 +181,7 @@ private:
   // reference to a temporary variable allocated on the stack.
   SizeType m_Size;
 
+  double      m_BeadRadius;
   PointType   m_BeadCenter;
   SpacingType m_BeadSampleSpacing;
 
@@ -192,12 +189,12 @@ private:
   double m_IntensityScale; // The maximum intensity value
 
   KernelImageSourcePointer   m_KernelSource;
-  SphereSpatialObjectPointer m_SphereObject;
   ConvolverPointer           m_Convolver;
   RescaleImageFilterPointer  m_RescaleFilter;
 
   typedef SimpleMemberCommand< Self > MemberCommandType;
   typedef typename MemberCommandType::Pointer MemberCommandPointer;
+
   MemberCommandPointer m_ModifiedEventCommand;
   unsigned long        m_ObserverTag;
 };

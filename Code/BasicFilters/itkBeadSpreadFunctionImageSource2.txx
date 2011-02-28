@@ -28,15 +28,13 @@ template< class TOutputImage >
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::BeadSpreadFunctionImageSource2()
 {
-  m_BeadCenter.Fill(0.0);
-  m_BeadSampleSpacing.Fill(10.0);
+  m_BeadCenter.Fill( 0.0 );
+  m_BeadSampleSpacing.Fill( 10.0 );
 
   m_IntensityShift = 0.0;
   m_IntensityScale = 1.0;
 
   m_KernelSource = NULL;
-
-  m_SphereObject = SphereSpatialObjectType::New();
 
   m_Convolver = ConvolverType::New();
 
@@ -53,7 +51,7 @@ template< class TOutputImage >
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::~BeadSpreadFunctionImageSource2()
 {
-  this->m_KernelSource->RemoveObserver(this->m_ObserverTag);
+  this->m_KernelSource->RemoveObserver( this->m_ObserverTag );
 }
 
 
@@ -71,10 +69,10 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetSize(const SizeType& size)
 {
-  if (size != m_Size)
+  if ( size != m_Size )
     {
     m_Size = size;
-    m_Convolver->SetSize(size);
+    m_Convolver->SetSize( size );
     this->Modified();
     }
 }
@@ -85,11 +83,11 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetSpacing(const SpacingType& spacing)
 {
-  if (spacing != m_Convolver->GetSpacing())
+  if ( spacing != m_Convolver->GetSpacing() )
     {
     this->Modified();
     }
-  m_Convolver->SetSpacing(spacing);
+  m_Convolver->SetSpacing( spacing );
 }
 
 
@@ -107,11 +105,11 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetOrigin(const PointType& origin)
 {
-  if (origin != m_Convolver->GetOrigin())
+  if ( origin != m_Convolver->GetOrigin() )
     {
     this->Modified();
     }
-  m_Convolver->SetOrigin(origin);
+  m_Convolver->SetOrigin( origin );
 }
 
 
@@ -127,34 +125,12 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 template< class TOutputImage >
 void
 BeadSpreadFunctionImageSource2< TOutputImage >
-::SetBeadRadius(double radius)
-{
-  if ( radius != m_SphereObject->GetRadius()[0] )
-    {
-    m_SphereObject->SetRadius(radius);
-    this->Modified();
-    }
-}
-
-
-template< class TOutputImage >
-double
-BeadSpreadFunctionImageSource2< TOutputImage >
-::GetBeadRadius() const
-{
-  return m_SphereObject->GetRadius()[0];
-}
-
-
-template< class TOutputImage >
-void
-BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetShearX(double shear)
 {
 #if 0
-  if (shear != m_Convolver->GetShearX())
+  if ( shear != m_Convolver->GetShearX() )
     {
-    m_Convolver->SetShearX(shear);
+    m_Convolver->SetShearX( shear );
     this->Modified();
     }
 #endif
@@ -181,7 +157,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 #if 0
   if (shear != m_Convolver->GetShearY())
     {
-    m_Convolver->SetShearY(shear);
+    m_Convolver->SetShearY( shear );
     this->Modified();
     }
 #endif
@@ -209,11 +185,11 @@ BeadSpreadFunctionImageSource2< TOutputImage >
     {
     if ( this->m_KernelSource )
       {
-      this->m_KernelSource->RemoveObserver(this->m_ObserverTag);
+      this->m_KernelSource->RemoveObserver( this->m_ObserverTag );
       }
     this->m_KernelSource = source;
     this->m_ObserverTag = this->m_KernelSource->
-      AddObserver(ModifiedEvent() , m_ModifiedEventCommand);
+      AddObserver( ModifiedEvent() , m_ModifiedEventCommand );
     this->Modified();
     }
 
@@ -226,51 +202,51 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetParameter(unsigned int index, ParametersValueType value)
 {
   unsigned int numberOfBSFParameters = 2 * ImageDimension + 5;
-  if (index < numberOfBSFParameters)
+  if ( index < numberOfBSFParameters )
     {
     SpacingType spacing = this->GetSpacing();
     PointType   center  = this->GetBeadCenter();
 
-    switch (index)
+    switch ( index )
       {
       case 0:
       case 1:
       case 2:
         spacing[index] = value;
-        this->SetSpacing(spacing);
+        this->SetSpacing( spacing );
         break;
 
       case 3:
-        this->SetBeadRadius(value);
+        this->SetBeadRadius( value );
         break;
 
       case 4:
       case 5:
       case 6:
         center[index - 4] = value;
-        this->SetBeadCenter(center);
+        this->SetBeadCenter( center );
         break;
 
       case 7:
-        this->SetShearX(value);
+        this->SetShearX( value );
         break;
 
       case 8:
-        this->SetShearY(value);
+        this->SetShearY( value );
         break;
 
       case 9:
-        this->SetIntensityShift(value);
+        this->SetIntensityShift( value );
         break;
 
       case 10:
-        this->SetIntensityScale(value);
+        this->SetIntensityScale( value );
         break;
       }
     }
   else
     {
-    this->m_KernelSource->SetParameter(index - numberOfBSFParameters, value);
+    this->m_KernelSource->SetParameter( index - numberOfBSFParameters, value );
     }
 }
 
@@ -281,12 +257,12 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetParameter(unsigned int index) const
 {
   unsigned int numberOfBSFParameters = this->GetNumberOfBeadSpreadFunctionParameters();
-  if (index < numberOfBSFParameters)
+  if ( index < numberOfBSFParameters )
     {
     SpacingType spacing = this->GetSpacing();
     PointType   center  = this->GetBeadCenter();
 
-    switch (index)
+    switch ( index )
       {
       case 0:
       case 1:
@@ -326,7 +302,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
     }
   else
     {
-    return this->m_KernelSource->GetParameter(index - numberOfBSFParameters);
+    return this->m_KernelSource->GetParameter( index - numberOfBSFParameters );
     }
 }
 
@@ -340,35 +316,35 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 
   // The first parameters are bead-spread function parameters
   SpacingType spacing;
-  for (int i = 0; i < ImageDimension; i++)
+  for ( int i = 0; i < ImageDimension; i++ )
     {
     spacing[i] = parameters[index++];
     }
-  this->SetSpacing(spacing);
+  this->SetSpacing( spacing );
 
-  this->SetBeadRadius(parameters[index++]);
+  this->SetBeadRadius( parameters[index++] );
 
   PointType center;
-  for (int i = 0; i < ImageDimension; i++)
+  for ( int i = 0; i < ImageDimension; i++ )
     {
     center[i] = parameters[index++];
     }
-  this->SetBeadCenter(center);
+  this->SetBeadCenter( center );
 
-  this->SetShearX(parameters[index++]);
-  this->SetShearY(parameters[index++]);
+  this->SetShearX( parameters[index++] );
+  this->SetShearY( parameters[index++] );
 
-  this->SetIntensityShift(parameters[index++]);
-  this->SetIntensityScale(parameters[index++]);
+  this->SetIntensityShift( parameters[index++] );
+  this->SetIntensityScale( parameters[index++] );
 
   // The last parameters go to the kernel source
   ParametersType kernelParameters(this->m_KernelSource->GetNumberOfParameters());
-  for (unsigned int i = 0; i < kernelParameters.GetSize(); i++)
+  for ( unsigned int i = 0; i < kernelParameters.GetSize(); i++ )
     {
     kernelParameters[i] = parameters[index++];
     }
 
-  this->m_KernelSource->SetParameters(kernelParameters);
+  this->m_KernelSource->SetParameters( kernelParameters );
 }
 
 
@@ -377,12 +353,12 @@ typename BeadSpreadFunctionImageSource2< TOutputImage >::ParametersType
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetParameters() const
 {
-  ParametersType parameters(GetNumberOfParameters());
+  ParametersType parameters( GetNumberOfParameters() );
   int index = 0;
 
   // The first parameters come from the bead-spread function
   const SpacingType spacing = this->GetSpacing();
-  for (int i = 0; i < ImageDimension; i++)
+  for ( int i = 0; i < ImageDimension; i++ )
     {
     parameters[index++] = spacing[i];
     }
@@ -390,7 +366,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   parameters[index++] = this->GetBeadRadius();
 
   const PointType beadCenter = this->GetBeadCenter();
-  for (int i = 0; i < ImageDimension; i++)
+  for ( int i = 0; i < ImageDimension; i++ )
     {
     parameters[index++] = beadCenter[i];
     }
@@ -402,7 +378,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 
   // The last parameters come from the kernel source
   ParametersType kernelParameters = this->m_KernelSource->GetParameters();
-  for (unsigned int i = 0; i < kernelParameters.GetSize(); i++)
+  for ( unsigned int i = 0; i < kernelParameters.GetSize(); i++ )
     {
     parameters[index++] = kernelParameters[i];
     }
@@ -434,7 +410,7 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetZCoordinate(unsigned int index, double coordinate)
 {
-  m_Convolver->SetZCoordinate(index, coordinate);
+  m_Convolver->SetZCoordinate( index, coordinate );
 }
 
 
@@ -443,7 +419,7 @@ double
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetZCoordinate(unsigned int index)
 {
-  return m_Convolver->GetZCoordinate(index);
+  return m_Convolver->GetZCoordinate( index );
 }
 
 
@@ -452,7 +428,7 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetUseCustomZCoordinates(bool use)
 {
-  m_Convolver->SetUseCustomZCoordinates(use);
+  m_Convolver->SetUseCustomZCoordinates( use );
   this->Modified();
 }
 
@@ -474,12 +450,12 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   // Set the PSF sampling spacing and size parameters, and update.
   PointType   psfTableOrigin;
   SizeType    psfTableSize;
-  SpacingType psfTableSpacing(50.0); // An arbitrary spacing
+  SpacingType psfTableSpacing( 50.0 ); // An arbitrary spacing
 
   // Determine necessary spatial extent of PSF table.
-  PointType minExtent(this->GetOrigin());
+  PointType minExtent( this->GetOrigin() );
   PointType maxExtent;
-  const unsigned int dimensions = itkGetStaticConstMacro(OutputImageDimension);
+  const unsigned int dimensions = itkGetStaticConstMacro( OutputImageDimension );
   for ( unsigned int i = 0; i < dimensions; i++ )
     {
     // First calculate extent of BSF in this dimension.
@@ -491,47 +467,43 @@ BeadSpreadFunctionImageSource2< TOutputImage >
     maxExtent[i] += -GetBeadCenter()[i] + GetBeadRadius();
 
     // Determine logical extent of the PSF table for the min and max extents.
-    long iDimMin = Math::Floor<long>(minExtent[i] / psfTableSpacing[i]);
+    long iDimMin = Math::Floor<long>( minExtent[i] / psfTableSpacing[i] );
     psfTableOrigin[i] = static_cast<double>(iDimMin) * psfTableSpacing[i];
-    long iDimMax = Math::Ceil<long>(maxExtent[i] / psfTableSpacing[i]);
+    long iDimMax = Math::Ceil<long>( maxExtent[i] / psfTableSpacing[i] );
 
     // Determine the logical extent of the PSF table in this dimension.
     psfTableSize[i] = iDimMax - iDimMin + 1;
     }
 
-  m_KernelSource->SetSize(psfTableSize);
-  m_KernelSource->SetSpacing(psfTableSpacing);
-  m_KernelSource->SetOrigin(psfTableOrigin);
+  m_KernelSource->SetSize( psfTableSize );
+  m_KernelSource->SetSpacing( psfTableSpacing );
+  m_KernelSource->SetOrigin( psfTableOrigin );
   m_KernelSource->UpdateLargestPossibleRegion();
 
   // Rasterize the sphere into a point set
-  m_SphereObject->ComputeBoundingBox();
-  typename SphereSpatialObjectType::BoundingBoxType* bb =
-    m_SphereObject->GetBoundingBox();
-
-  // Determine the number of samples to take in each dimension
+  // First, determine the number of samples to take in each dimension
   IndexType sphereSamplesIndex;
   SizeType  sphereSamplesSize;
   for ( unsigned int dim = 0; dim < ImageDimension; dim++ )
     {
     sphereSamplesIndex[dim] =
-      (Math::Ceil<IndexValueType>( bb->GetMinimum()[dim] / m_BeadSampleSpacing[dim] ) );
+      (Math::Ceil<IndexValueType>( -m_BeadRadius / m_BeadSampleSpacing[dim] ) );
     sphereSamplesSize[dim] =
-      (Math::Floor<SizeValueType>( (bb->GetMaximum()[dim] - bb->GetMinimum()[dim]) / m_BeadSampleSpacing[dim] ) );
+      (Math::Floor<SizeValueType>( ( 2.0 * m_BeadRadius ) / m_BeadSampleSpacing[dim] ) );
     }
 
-  // Set up an empty image to conveniently obtain indices and physical
+  // Then, set up an empty image to conveniently obtain indices and physical
   // point locations of samples during sphere rasterization
   RegionType dummyRegion;
   dummyRegion.SetIndex( sphereSamplesIndex );
   dummyRegion.SetSize( sphereSamplesSize );
-  typename OutputImageType::Pointer dummy = OutputImageType::New();
-  dummy->SetRegions( dummyRegion );
+  typename OutputImageType::Pointer dummyImage = OutputImageType::New();
+  dummyImage->SetRegions( dummyRegion );
 
-  dummy->SetSpacing( m_BeadSampleSpacing );
+  dummyImage->SetSpacing( m_BeadSampleSpacing );
 
   PointType dummyOrigin; dummyOrigin.Fill( 0.0 );
-  dummy->SetOrigin( dummyOrigin );
+  dummyImage->SetOrigin( dummyOrigin );
 
   typename PointSetType::Pointer pointSet = PointSetType::New();
 
@@ -543,6 +515,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 
   PointType zero; zero.Fill( 0.0 );
   typename PointType::VectorType centerVector = m_BeadCenter - zero;
+  double r2 = m_BeadRadius * m_BeadRadius;
 
   // Iterate over the offsets in the image, convert them to indices,
   // then convert the indices to the physical samples points. With the
@@ -550,24 +523,24 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   typename PointSetType::PointIdentifier ptId = 0;
   for ( SizeValueType offset = 0; offset < numSamples; offset++ )
     {
-    IndexType dummyIndex = dummy->ComputeIndex( offset );
+    IndexType dummyIndex = dummyImage->ComputeIndex( offset );
     PointType candidatePoint;
-    dummy->TransformIndexToPhysicalPoint( dummyIndex, candidatePoint );
-    if ( m_SphereObject->IsInside( candidatePoint ) )
+    dummyImage->TransformIndexToPhysicalPoint( dummyIndex, candidatePoint );
+    if ( candidatePoint.SquaredEuclideanDistanceTo( zero ) < r2 )
       {
       pointSet->SetPoint( ptId++, candidatePoint + centerVector );
       }
     }
 
   m_Convolver->SetInput( pointSet );
-  m_Convolver->SetKernelImageInput(m_KernelSource->GetOutput());
+  m_Convolver->SetKernelImageInput( m_KernelSource->GetOutput() );
   m_Convolver->UpdateLargestPossibleRegion();
 
-  m_RescaleFilter->GraftOutput(this->GetOutput());
-  m_RescaleFilter->SetShift(m_IntensityShift);
-  m_RescaleFilter->SetScale(m_IntensityScale);
+  m_RescaleFilter->GraftOutput( this->GetOutput() );
+  m_RescaleFilter->SetShift( m_IntensityShift );
+  m_RescaleFilter->SetScale( m_IntensityScale );
   m_RescaleFilter->UpdateLargestPossibleRegion();
-  this->GraftOutput(m_RescaleFilter->GetOutput());
+  this->GraftOutput( m_RescaleFilter->GetOutput() );
 }
 
 
@@ -580,7 +553,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   IndexType index = {{0}};
   SizeType size( m_Convolver->GetSize() );
 
-  output = this->GetOutput(0);
+  output = this->GetOutput( 0 );
 
   RegionType largestPossibleRegion;
   largestPossibleRegion.SetSize( size );
@@ -597,10 +570,10 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::PrintSelf(std::ostream& os, Indent indent) const
 {
-  Superclass::PrintSelf(os,indent);
-  m_KernelSource->Print(os,indent);
-  m_Convolver->Print(os,indent);
-  m_RescaleFilter->Print(os,indent);
+  Superclass::PrintSelf( os, indent );
+  m_KernelSource->Print( os, indent );
+  m_Convolver->Print( os, indent );
+  m_RescaleFilter->Print( os, indent );
 }
 
 
