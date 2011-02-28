@@ -19,11 +19,10 @@
 #define _itkBeadSpreadFunctionImageSource2_h
 
 #include "itkCommand.h"
-#include "itkEllipseSpatialObject.h"
 #include "itkParametricImageSource.h"
 #include "itkPointSet.h"
 #include "itkPointSetConvolutionImageFilter.h"
-#include "itkShiftScaleImageFilter.h"
+#include "itkScaleShiftImageFilter.h"
 
 namespace itk
 {
@@ -75,7 +74,7 @@ public:
     ConvolverType;
   typedef typename ConvolverType::Pointer
     ConvolverPointer;
-  typedef ShiftScaleImageFilter< TOutputImage, TOutputImage >
+  typedef ScaleShiftImageFilter< TOutputImage, TOutputImage >
     RescaleImageFilterType;
   typedef typename RescaleImageFilterType::Pointer
     RescaleImageFilterPointer;

@@ -19,7 +19,7 @@
 #define _itkBeadSpreadFunctionImageSource_h
 
 #include "itkParametricImageSource.h"
-#include "itkShiftScaleImageFilter.h"
+#include "itkScaleShiftImageFilter.h"
 #include "itkSphereConvolutionFilter.h"
 #include "itkCommand.h"
 
@@ -68,7 +68,7 @@ public:
     ConvolverType;
   typedef typename ConvolverType::Pointer
     ConvolverPointer;
-  typedef ShiftScaleImageFilter< TOutputImage, TOutputImage >
+  typedef ScaleShiftImageFilter< TOutputImage, TOutputImage >
     RescaleImageFilterType;
   typedef typename RescaleImageFilterType::Pointer
     RescaleImageFilterPointer;
