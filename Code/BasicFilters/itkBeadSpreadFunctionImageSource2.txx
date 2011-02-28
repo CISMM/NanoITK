@@ -28,6 +28,7 @@ template< class TOutputImage >
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::BeadSpreadFunctionImageSource2()
 {
+  m_BeadRadius = 0.0;
   m_BeadCenter.Fill( 0.0 );
   m_BeadSampleSpacing.Fill( 10.0 );
 
@@ -119,6 +120,19 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 ::GetOrigin() const
 {
   return m_Convolver->GetOrigin();
+}
+
+
+template< class TOutputImage >
+void
+BeadSpreadFunctionImageSource2< TOutputImage >
+::SetBeadRadius( double radius )
+{
+  if ( radius != m_BeadRadius )
+    {
+    this->RasterizeShape();
+    this->Modified();
+    }
 }
 
 
@@ -457,41 +471,8 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 template< class TOutputImage >
 void
 BeadSpreadFunctionImageSource2< TOutputImage >
-::GenerateData()
+::RasterizeShape()
 {
-  // Set the PSF sampling spacing and size parameters, and update.
-  PointType   psfTableOrigin;
-  SizeType    psfTableSize;
-  SpacingType psfTableSpacing( 50.0 ); // An arbitrary spacing
-
-  // Determine necessary spatial extent of PSF table.
-  PointType minExtent( this->GetOrigin() );
-  PointType maxExtent;
-  const unsigned int dimensions = itkGetStaticConstMacro( OutputImageDimension );
-  for ( unsigned int i = 0; i < dimensions; i++ )
-    {
-    // First calculate extent of BSF in this dimension.
-    maxExtent[i] = static_cast<PointValueType>
-      (this->GetSize()[i]-1) * this->GetSpacing()[i] + minExtent[i];
-
-    // Now modify calculated PSF dimension to account for bead shift and radius
-    minExtent[i] += -GetBeadCenter()[i] - GetBeadRadius();
-    maxExtent[i] += -GetBeadCenter()[i] + GetBeadRadius();
-
-    // Determine logical extent of the PSF table for the min and max extents.
-    long iDimMin = Math::Floor<long>( minExtent[i] / psfTableSpacing[i] );
-    psfTableOrigin[i] = static_cast<double>(iDimMin) * psfTableSpacing[i];
-    long iDimMax = Math::Ceil<long>( maxExtent[i] / psfTableSpacing[i] );
-
-    // Determine the logical extent of the PSF table in this dimension.
-    psfTableSize[i] = iDimMax - iDimMin + 1;
-    }
-
-  m_KernelSource->SetSize( psfTableSize );
-  m_KernelSource->SetSpacing( psfTableSpacing );
-  m_KernelSource->SetOrigin( psfTableOrigin );
-  m_KernelSource->UpdateLargestPossibleRegion();
-
   // Rasterize the sphere into a point set
   // First, determine the number of samples to take in each dimension
   IndexType sphereSamplesIndex;
@@ -545,6 +526,47 @@ BeadSpreadFunctionImageSource2< TOutputImage >
     }
 
   m_Convolver->SetInput( pointSet );
+}
+
+
+template< class TOutputImage >
+void
+BeadSpreadFunctionImageSource2< TOutputImage >
+::GenerateData()
+{
+  // Set the PSF sampling spacing and size parameters, and update.
+  PointType   psfTableOrigin;
+  SizeType    psfTableSize;
+  SpacingType psfTableSpacing( 50.0 ); // An arbitrary spacing
+
+  // Determine necessary spatial extent of PSF table.
+  PointType minExtent( this->GetOrigin() );
+  PointType maxExtent;
+  const unsigned int dimensions = itkGetStaticConstMacro( OutputImageDimension );
+  for ( unsigned int i = 0; i < dimensions; i++ )
+    {
+    // First calculate extent of BSF in this dimension.
+    maxExtent[i] = static_cast<PointValueType>
+      (this->GetSize()[i]-1) * this->GetSpacing()[i] + minExtent[i];
+
+    // Now modify calculated PSF dimension to account for bead shift and radius
+    minExtent[i] += -GetBeadCenter()[i] - GetBeadRadius();
+    maxExtent[i] += -GetBeadCenter()[i] + GetBeadRadius();
+
+    // Determine logical extent of the PSF table for the min and max extents.
+    long iDimMin = Math::Floor<long>( minExtent[i] / psfTableSpacing[i] );
+    psfTableOrigin[i] = static_cast<double>(iDimMin) * psfTableSpacing[i];
+    long iDimMax = Math::Ceil<long>( maxExtent[i] / psfTableSpacing[i] );
+
+    // Determine the logical extent of the PSF table in this dimension.
+    psfTableSize[i] = iDimMax - iDimMin + 1;
+    }
+
+  m_KernelSource->SetSize( psfTableSize );
+  m_KernelSource->SetSpacing( psfTableSpacing );
+  m_KernelSource->SetOrigin( psfTableOrigin );
+  m_KernelSource->UpdateLargestPossibleRegion();
+
   m_Convolver->SetKernelImageInput( m_KernelSource->GetOutput() );
   m_Convolver->UpdateLargestPossibleRegion();
 

@@ -102,7 +102,8 @@ public:
   const PointType & GetOrigin() const;
 
   /** Set/get the bead radius (in nanometers). */
-  itkSetMacro(BeadRadius, double);
+  //itkSetMacro(BeadRadius, double);
+  void SetBeadRadius( double radius );
   itkGetConstMacro(BeadRadius, double);
 
   /** Set/get the shear in the X direction. */
@@ -161,6 +162,10 @@ protected:
   virtual ~BeadSpreadFunctionImageSource2();
   void PrintSelf(std::ostream& os, Indent indent) const;
 
+  /** Recompute the PointSet resulting from rasterizing the bead
+   * shape. */
+  void RasterizeShape();
+
   /** This class is implicitly multi-threaded because its member filters
    * are mulithreaded, so we go with a "single-threaded"
    * implementation here. */
@@ -172,13 +177,13 @@ private:
   BeadSpreadFunctionImageSource2(const BeadSpreadFunctionImageSource2&); // purposely not implemented
   void operator=(const BeadSpreadFunctionImageSource2&); // purposely not implemented
 
-  // This is need because the GetSize() method in the
-  // PointSetConvolutionImageFilter returns a copy of the Size, not a
-  // reference. Because this class derives from ParametricImageSource,
-  // it must override its GetSize() method to return a
-  // reference. Returning the copy from the
-  // PointSetConvolutionImageFilter isn't safe because it returns a
-  // reference to a temporary variable allocated on the stack.
+  /** This is needed because the GetSize() method in the
+   * PointSetConvolutionImageFilter returns a copy of the Size, not a
+   * reference. Because this class derives from ParametricImageSource,
+   * it must override its GetSize() method to return a
+   * reference. Returning the copy from the
+   * PointSetConvolutionImageFilter isn't safe because it returns a
+   * reference to a temporary variable allocated on the stack. */
   SizeType m_Size;
 
   double      m_BeadRadius;
