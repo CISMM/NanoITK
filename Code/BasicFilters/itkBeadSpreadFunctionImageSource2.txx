@@ -40,6 +40,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   m_KernelSource = NULL;
 
   m_Convolver = ConvolverType::New();
+  m_Convolver->SetInput( PointSetType::New() );
 
   m_RescaleFilter = RescaleImageFilterType::New();
   m_RescaleFilter->SetInput(m_Convolver->GetOutput());
@@ -198,7 +199,7 @@ void
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::SetBeadCenter( const PointType& center )
 {
-  if ( this->m_BeadCenter == center )
+  if ( this->m_BeadCenter != center )
     {
     this->m_BeadCenter = center;
     this->m_BeadShapeModified = true;
