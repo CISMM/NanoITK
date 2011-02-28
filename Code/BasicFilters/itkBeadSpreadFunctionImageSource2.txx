@@ -28,9 +28,11 @@ template< class TOutputImage >
 BeadSpreadFunctionImageSource2< TOutputImage >
 ::BeadSpreadFunctionImageSource2()
 {
-  m_BeadRadius = 0.0;
+  m_BeadRadius = 10.0;
   m_BeadCenter.Fill( 0.0 );
   m_BeadSampleSpacing.Fill( 10.0 );
+
+  m_BeadShapeModified = true;
 
   m_IntensityShift = 0.0;
   m_IntensityScale = 1.0;
@@ -131,7 +133,7 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   if ( radius != m_BeadRadius )
     {
     this->m_BeadRadius = radius;
-    this->RasterizeShape();
+    this->m_BeadShapeModified = true;
     this->Modified();
     }
 }
@@ -188,6 +190,20 @@ BeadSpreadFunctionImageSource2< TOutputImage >
   return m_Convolver->GetShearY();
 #endif
   return 0.0;
+}
+
+
+template< class TOutputImage >
+void
+BeadSpreadFunctionImageSource2< TOutputImage >
+::SetBeadCenter( const PointType& center )
+{
+  if ( this->m_BeadCenter == center )
+    {
+    this->m_BeadCenter = center;
+    this->m_BeadShapeModified = true;
+    this->Modified();
+    }
 }
 
 
@@ -570,6 +586,12 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 
   m_Convolver->SetKernelImageInput( m_KernelSource->GetOutput() );
   m_Convolver->UpdateLargestPossibleRegion();
+
+  if ( m_BeadShapeModified )
+    {
+    this->RasterizeShape();
+    m_BeadShapeModified = false;
+    }
 
   m_RescaleFilter->GraftOutput( this->GetOutput() );
   m_RescaleFilter->SetShift( m_IntensityShift );

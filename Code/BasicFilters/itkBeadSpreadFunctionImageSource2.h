@@ -102,7 +102,6 @@ public:
   const PointType & GetOrigin() const;
 
   /** Set/get the bead radius (in nanometers). */
-  //itkSetMacro(BeadRadius, double);
   void SetBeadRadius( double radius );
   itkGetConstMacro(BeadRadius, double);
 
@@ -115,7 +114,7 @@ public:
   double GetShearY() const;
 
   /** Set/get the bead center. */
-  itkSetMacro(BeadCenter, PointType);
+  void SetBeadCenter( const PointType& center );
   itkGetConstReferenceMacro(BeadCenter, PointType);
 
   /** Set/get the background value. */
@@ -189,6 +188,8 @@ private:
   double      m_BeadRadius;
   PointType   m_BeadCenter;
   SpacingType m_BeadSampleSpacing;
+
+  bool m_BeadShapeModified;
 
   double m_IntensityShift; // Additive background constant
   double m_IntensityScale; // The maximum intensity value
