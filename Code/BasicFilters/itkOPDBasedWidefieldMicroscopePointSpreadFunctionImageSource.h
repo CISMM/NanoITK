@@ -125,6 +125,14 @@ public:
   /** Get the actual point source depth in the specimen layer (in nanometers). */
   itkGetConstMacro(ActualPointSourceDepthInSpecimenLayer, double);
 
+  /** Get/set the shear in X. */
+  itkSetMacro(ShearX, double);
+  itkGetConstMacro(ShearX, double);
+
+  /** Get/set the shear in Y. */
+  itkSetMacro(ShearY, double);
+  itkGetConstMacro(ShearY, double);
+
   /** Set a single parameter value. */
   virtual void SetParameter(unsigned int index, ParametersValueType value);
 
@@ -185,6 +193,8 @@ protected:
   double m_DesignSpecimenLayerRefractiveIndex;
   double m_ActualSpecimenLayerRefractiveIndex;
   double m_ActualPointSourceDepthInSpecimenLayer;
+  double m_ShearX;
+  double m_ShearY;
 
 };
 } // end namespace itk

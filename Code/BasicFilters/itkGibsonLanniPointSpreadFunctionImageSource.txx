@@ -116,6 +116,10 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
     PointType point;
     image->TransformIndexToPhysicalPoint(index, point);
 
+    // Apply the shear transformation to the sample point
+    point[0] += this->m_ShearX * point[2];
+    point[1] += this->m_ShearY * point[2];
+
     it.Set( ComputeSampleValue( point, threadId ));
     progress.CompletedPixel();
     }

@@ -23,6 +23,9 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource< TOutputImage >
   this->m_DesignSpecimenLayerRefractiveIndex         =  1.33; // unitless
   this->m_ActualSpecimenLayerRefractiveIndex         =  1.33; // unitless
   this->m_ActualPointSourceDepthInSpecimenLayer      =   0.0; // in micrometers
+
+  this->m_ShearX = 0.0; // nm in X vs. nm in Z
+  this->m_ShearY = 0.0; // nm in Y vs. nm in Z
 }
 
 
@@ -92,6 +95,14 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
     case 12:
       this->SetActualPointSourceDepthInSpecimenLayer(value);
       break;
+
+    case 13:
+      this->SetShearX(value);
+      break;
+
+    case 14:
+      this->SetShearY(value);
+      break;
     }
 }
 
@@ -156,6 +167,14 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
       return this->GetActualPointSourceDepthInSpecimenLayer();
       break;
 
+    case 13:
+      return this->GetShearX();
+      break;
+
+    case 14:
+      return this->GetShearY();
+      break;
+
     default:
       return 0.0;
       break;
@@ -186,6 +205,9 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
   SetDesignSpecimenLayerRefractiveIndex(parameters[index++]);
   SetActualSpecimenLayerRefractiveIndex(parameters[index++]);
   SetActualPointSourceDepthInSpecimenLayer(parameters[index++]);
+
+  SetShearX(parameters[index++]);
+  SetShearY(parameters[index++]);
 }
 
 
@@ -213,6 +235,9 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
   parameters[index++] = this->GetActualSpecimenLayerRefractiveIndex();
   parameters[index++] = this->GetActualPointSourceDepthInSpecimenLayer();
 
+  parameters[index++] = this->GetShearX();
+  parameters[index++] = this->GetShearY();
+
   return parameters;
 }
 
@@ -223,7 +248,7 @@ unsigned int
 OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
 ::GetNumberOfParameters() const
 {
-  return 13;
+  return 15;
 }
 
 
@@ -254,6 +279,8 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource< TOutputImage >
             << m_ActualSpecimenLayerRefractiveIndex << std::endl;
   std::cout << indent << "ActualPointSourceDepthInSpecimenLayer: "
             << m_ActualPointSourceDepthInSpecimenLayer << std::endl;
+  std::cout << indent << "ShearX: " << m_ShearX << std::endl;
+  std::cout << indent << "ShearY: " << m_ShearY << std::endl;
 }
 
 } // end namespace itk
