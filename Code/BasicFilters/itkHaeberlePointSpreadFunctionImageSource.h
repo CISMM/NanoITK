@@ -240,7 +240,7 @@ protected:
 
   void BeforeThreadedGenerateData();
   void ThreadedGenerateData(const RegionType& outputRegionForThread,
-                                    int threadId );
+                                    ThreadIdType threadId );
 
   /** Computes the light intensity at a specified point. */
   double ComputeSampleValue(const PointType& point);

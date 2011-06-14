@@ -93,7 +93,7 @@ protected:
   void GenerateData();
   void BeforeThreadedGenerateData();
   void ThreadedGenerateData
-  (const OutputImageRegionType & outputRegionForThread, int threadId);
+  (const OutputImageRegionType & outputRegionForThread, ThreadIdType threadId);
 
 private:
   InterpolatorPointer m_Interpolator;

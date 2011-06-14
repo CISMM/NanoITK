@@ -117,7 +117,7 @@ protected:
   virtual int SplitRequestedRegion(int i, int num, OutputImageRegionType& splitRegion);
 
   virtual void ThreadedGenerateData(
-    const OutputImageRegionType& outputRegionForThread, int threadId);
+    const OutputImageRegionType& outputRegionForThread, ThreadTypeId threadId);
 
   virtual AccumulatorType NewAccumulator(unsigned long) const;
 

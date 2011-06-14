@@ -228,7 +228,7 @@ template <class TInputImage, class TOutputImage>
 void
 SphereConvolutionFilter<TInputImage,TOutputImage>
 ::ThreadedGenerateData
-(const OutputImageRegionType& outputRegionForThread, int threadId)
+(const OutputImageRegionType& outputRegionForThread, ThreadIdType threadId)
 {
   // Support progress methods/callbacks
   ProgressReporter progress(this, threadId, outputRegionForThread.GetNumberOfPixels());

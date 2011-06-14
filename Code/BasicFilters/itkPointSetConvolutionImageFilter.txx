@@ -98,7 +98,7 @@ PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
 template< class TInputPointSet, class TInputImage, class TOutputImage >
 void
 PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
-::ThreadedGenerateData(const OutputImageRegionType& outputRegionForThread, int threadId)
+::ThreadedGenerateData(const OutputImageRegionType& outputRegionForThread, ThreadIdType threadId)
 {
   // Support progress methods/callbacks
   ProgressReporter progress(this, threadId, outputRegionForThread.GetNumberOfPixels());

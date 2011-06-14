@@ -279,7 +279,7 @@ protected:
   virtual void BeforeThreadedGenerateData();
 
   virtual void ThreadedGenerateData
-    (const OutputImageRegionType& outputRegionForThread, int threadId);
+    (const OutputImageRegionType& outputRegionForThread, ThreadIdType threadId);
 
   /** Computes the light intensity at a specified point. */
   double ComputeSampleValue(OutputImagePointType& point);

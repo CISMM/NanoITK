@@ -101,7 +101,7 @@ GibsonLanniPointSpreadFunctionImageSource< TOutputImage >
 template< class TOutputImage >
 void
 GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
-::ThreadedGenerateData(const RegionType& outputRegionForThread, int threadId )
+::ThreadedGenerateData(const RegionType& outputRegionForThread, ThreadIdType threadId )
 {
   // Support progress methods/callbacks
   ProgressReporter progress(this, threadId, outputRegionForThread.GetNumberOfPixels());

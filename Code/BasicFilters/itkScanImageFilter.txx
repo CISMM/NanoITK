@@ -180,7 +180,7 @@ template <class TInputImage, class TOutputImage, class TAccumulator>
 void
 ScanImageFilter<TInputImage,TOutputImage,TAccumulator>
 ::ThreadedGenerateData(const OutputImageRegionType& outputRegionForThread,
-		       int threadId)
+		       ThreadIdType threadId)
 {
   // Use the output image to report the progress. This should be set
   // to the number of lines.

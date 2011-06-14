@@ -107,7 +107,7 @@ protected:
   void PrintSelf(std::ostream& os, Indent indent) const;
 
   void BeforeThreadedGenerateData();
-  virtual void ThreadedGenerateData(const RegionType& outputRegionForThread, int threadId );
+  virtual void ThreadedGenerateData(const RegionType& outputRegionForThread, ThreadIdType threadId );
 
   /** Computes the light intensity at a specified point. */
   double ComputeSampleValue(PointType& point, int threadId);
