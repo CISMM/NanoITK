@@ -34,26 +34,34 @@ template< class TOutputImage >
 GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
 ::GibsonLanniPointSpreadFunctionImageSource()
 {
-  this->m_Size.Fill(32);
-  this->m_Spacing.Fill(65.0);
-  this->m_Origin.Fill(0.0);
+  SizeType size;
+  size.Fill( 32 );
+  this->SetSize( size );
+
+  SpacingType spacing;
+  spacing.Fill( 65.0 );
+  this->SetSpacing( spacing );
+
+  PointType origin;
+  origin.Fill( 0.0 );
+  this->SetOrigin( origin );
 
   // Set default PSF model parameters.
-  this->m_EmissionWavelength   = 550.0; // in nanometers
-  this->m_NumericalAperture    = 1.4;   // unitless
-  this->m_Magnification        = 60.0;  // unitless
+  m_EmissionWavelength   = 550.0; // in nanometers
+  m_NumericalAperture    = 1.4;   // unitless
+  m_Magnification        = 60.0;  // unitless
 
-  this->m_DesignCoverSlipRefractiveIndex    = 1.522; // unitless
-  this->m_ActualCoverSlipRefractiveIndex    = 1.522; // unitless
-  this->m_DesignCoverSlipThickness          = 170.0; // in micrometers
-  this->m_ActualCoverSlipThickness          = 170.0; // in micrometers
-  this->m_DesignImmersionOilRefractiveIndex = 1.515; // unitless
-  this->m_ActualImmersionOilRefractiveIndex = 1.515; // unitless
-  this->m_DesignImmersionOilThickness       = 100.0; // in micrometers
+  m_DesignCoverSlipRefractiveIndex    = 1.522; // unitless
+  m_ActualCoverSlipRefractiveIndex    = 1.522; // unitless
+  m_DesignCoverSlipThickness          = 170.0; // in micrometers
+  m_ActualCoverSlipThickness          = 170.0; // in micrometers
+  m_DesignImmersionOilRefractiveIndex = 1.515; // unitless
+  m_ActualImmersionOilRefractiveIndex = 1.515; // unitless
+  m_DesignImmersionOilThickness       = 100.0; // in micrometers
 
-  this->m_DesignSpecimenLayerRefractiveIndex         =  1.33; // unitless
-  this->m_ActualSpecimenLayerRefractiveIndex         =  1.33; // unitless
-  this->m_ActualPointSourceDepthInSpecimenLayer      =   0.0; // in micrometers
+  m_DesignSpecimenLayerRefractiveIndex         =  1.33; // unitless
+  m_ActualSpecimenLayerRefractiveIndex         =  1.33; // unitless
+  m_ActualPointSourceDepthInSpecimenLayer      =   0.0; // in micrometers
 }
 
 

@@ -21,7 +21,7 @@
 #include "itkModifiedGibsonLanniPointSpreadFunctionImageSource.h"
 
 #include "itkGibsonLanniPointSpreadFunctionImageSource.txx"
-#include "itkGaussianImageSource.txx"
+#include "itkGaussianImageSource.hxx"
 
 namespace itk
 {

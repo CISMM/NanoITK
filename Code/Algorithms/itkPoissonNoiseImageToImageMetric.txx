@@ -163,7 +163,7 @@ PoissonNoiseImageToImageMetric<TFixedImage,TMovingImage>
 
   const unsigned int ParametersDimension = this->GetNumberOfParameters();
   derivative = DerivativeType( ParametersDimension );
-  derivative.Fill( NumericTraits<ITK_TYPENAME DerivativeType::ValueType>::Zero );
+  derivative.Fill( NumericTraits< typename DerivativeType::ValueType >::Zero );
 
   ti.GoToBegin();
 
@@ -193,8 +193,9 @@ PoissonNoiseImageToImageMetric<TFixedImage,TMovingImage>
       {
       const RealType movingValue  = this->m_Interpolator->Evaluate( transformedPoint );
 
-      const TransformJacobianType & jacobian =
-        this->m_Transform->GetJacobian( inputPoint );
+      TransformJacobianType jacobian;
+      this->m_Transform->
+        ComputeJacobianWithRespectToParameters( inputPoint, jacobian );
 
       const RealType fixedValue     = ti.Value();
       this->m_NumberOfPixelsCounted++;
@@ -290,7 +291,7 @@ PoissonNoiseImageToImageMetric<TFixedImage,TMovingImage>
 
   const unsigned int ParametersDimension = this->GetNumberOfParameters();
   derivative = DerivativeType( ParametersDimension );
-  derivative.Fill( NumericTraits<ITK_TYPENAME DerivativeType::ValueType>::Zero );
+  derivative.Fill( NumericTraits<typename DerivativeType::ValueType>::Zero );
 
   ti.GoToBegin();
 
@@ -320,8 +321,9 @@ PoissonNoiseImageToImageMetric<TFixedImage,TMovingImage>
       {
       const RealType movingValue  = this->m_Interpolator->Evaluate( transformedPoint );
 
-      const TransformJacobianType & jacobian =
-        this->m_Transform->GetJacobian( inputPoint );
+      TransformJacobianType jacobian;
+      this->m_Transform->
+        ComputeJacobianWithRespectToParameters( inputPoint, jacobian );
 
       const RealType fixedValue     = ti.Value();
       this->m_NumberOfPixelsCounted++;
