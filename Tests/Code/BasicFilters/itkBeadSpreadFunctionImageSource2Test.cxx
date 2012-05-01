@@ -1,6 +1,6 @@
 #include <itkBeadSpreadFunctionImageSource2.h>
 
-#include <itkGaussianPointSpreadFunctionImageSource.h>
+#include <itkGaussianImageSource.h>
 #include <itkImageFileWriter.h>
 
 int itkBeadSpreadFunctionImageSource2Test(int argc, char* argv[])
