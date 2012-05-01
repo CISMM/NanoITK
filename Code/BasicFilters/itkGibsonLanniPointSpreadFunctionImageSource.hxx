@@ -34,17 +34,6 @@ template< class TOutputImage >
 GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
 ::GibsonLanniPointSpreadFunctionImageSource()
 {
-  SizeType size;
-  size.Fill( 32 );
-  this->SetSize( size );
-
-  SpacingType spacing;
-  spacing.Fill( 65.0 );
-  this->SetSpacing( spacing );
-
-  PointType origin;
-  origin.Fill( 0.0 );
-  this->SetOrigin( origin );
 }
 
 

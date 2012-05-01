@@ -12,6 +12,18 @@ template< class TOutputImage >
 MicroscopePointSpreadFunctionImageSource< TOutputImage >
 ::MicroscopePointSpreadFunctionImageSource()
 {
+  SizeType size;
+  size.Fill( 32 );
+  this->SetSize( size );
+
+  SpacingType spacing;
+  spacing.Fill( 65.0 );
+  this->SetSpacing( spacing );
+
+  PointType origin;
+  origin.Fill( -0.5*(size[0] - 1) * spacing[0] );
+  this->SetOrigin( origin );
+
   this->m_Magnification = 60.0;
   this->m_NumericalAperture = 1.4;
 }
