@@ -5,6 +5,10 @@ endif(COMMAND CMAKE_POLICY)
 
 project(NanoITK)
 
+set(EXECUTABLE_OUTPUT_PATH "${NanoITK_BINARY_DIR}/bin")
+set(LIBRARY_OUTPUT_PATH "${NanoITK_BINARY_DIR}/lib")
+
+
 #######################################
 # Include ITK
 #######################################
