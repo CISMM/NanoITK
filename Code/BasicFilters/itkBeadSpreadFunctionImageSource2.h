@@ -128,10 +128,6 @@ public:
   virtual void SetKernelSource( KernelImageSourceType* source );
   itkGetObjectMacro(KernelSource, KernelImageSourceType);
 
-  /** Set/get a single parameter value. */
-  virtual void SetParameter(unsigned int index, ParametersValueType value);
-  virtual ParametersValueType GetParameter(unsigned int index) const;
-
   /** Expects the parameters argument to contain values for ALL parameters. */
   virtual void SetParameters(const ParametersType& parameters);
 

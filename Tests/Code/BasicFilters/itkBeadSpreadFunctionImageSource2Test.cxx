@@ -5,9 +5,9 @@
 
 int itkBeadSpreadFunctionImageSource2Test(int argc, char* argv[])
 {
-  typedef itk::Image< float, 3 >                                   ImageType;
-  typedef itk::BeadSpreadFunctionImageSource2< ImageType >         SourceType;
-  typedef itk::GaussianPointSpreadFunctionImageSource< ImageType > KernelSourceType;
+  typedef itk::Image< float, 3 >                           ImageType;
+  typedef itk::BeadSpreadFunctionImageSource2< ImageType > SourceType;
+  typedef itk::GaussianImageSource< ImageType >            KernelSourceType;
 
   SourceType::Pointer source = SourceType::New();
 
@@ -23,9 +23,10 @@ int itkBeadSpreadFunctionImageSource2Test(int argc, char* argv[])
   source->SetBeadCenter( center );
 
   KernelSourceType::Pointer kernelSource = KernelSourceType::New();
-  kernelSource->SetParameter(0, 20.0);
-  kernelSource->SetParameter(1, 20.0);
-  kernelSource->SetParameter(2, 20.0);
+  KernelSourceType::ParametersType parameters(ImageType::ImageDimension);
+  parameters[0] = 20.0;
+  parameters[1] = 20.0;
+  parameters[2] = 20.0;
   source->SetKernelSource( kernelSource );
 
   source->Update();

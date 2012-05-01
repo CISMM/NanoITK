@@ -45,23 +45,6 @@ GibsonLanniPointSpreadFunctionImageSource<TOutputImage>
   PointType origin;
   origin.Fill( 0.0 );
   this->SetOrigin( origin );
-
-  // Set default PSF model parameters.
-  m_EmissionWavelength   = 550.0; // in nanometers
-  m_NumericalAperture    = 1.4;   // unitless
-  m_Magnification        = 60.0;  // unitless
-
-  m_DesignCoverSlipRefractiveIndex    = 1.522; // unitless
-  m_ActualCoverSlipRefractiveIndex    = 1.522; // unitless
-  m_DesignCoverSlipThickness          = 170.0; // in micrometers
-  m_ActualCoverSlipThickness          = 170.0; // in micrometers
-  m_DesignImmersionOilRefractiveIndex = 1.515; // unitless
-  m_ActualImmersionOilRefractiveIndex = 1.515; // unitless
-  m_DesignImmersionOilThickness       = 100.0; // in micrometers
-
-  m_DesignSpecimenLayerRefractiveIndex         =  1.33; // unitless
-  m_ActualSpecimenLayerRefractiveIndex         =  1.33; // unitless
-  m_ActualPointSourceDepthInSpecimenLayer      =   0.0; // in micrometers
 }
 
 
