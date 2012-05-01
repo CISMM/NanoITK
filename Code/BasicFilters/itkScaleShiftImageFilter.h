@@ -179,7 +179,7 @@ private:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkScaleShiftImageFilter.txx"
+#include "itkScaleShiftImageFilter.hxx"
 #endif
 
 #endif // _itkScaleShiftImageFilter_h

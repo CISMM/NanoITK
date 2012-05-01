@@ -87,7 +87,7 @@ protected:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand.txx"
+#include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand.hxx"
 #endif
 
 #endif // __itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand_h

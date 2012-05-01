@@ -104,7 +104,7 @@ private:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkGaussianPointSpreadFunctionImageSource.txx"
+#include "itkGaussianPointSpreadFunctionImageSource.hxx"
 #endif
 
 #endif

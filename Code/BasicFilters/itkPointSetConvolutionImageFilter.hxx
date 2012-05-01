@@ -15,8 +15,8 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef __itkPointSetConvolutionImageFilter_txx
-#define __itkPointSetConvolutionImageFilter_txx
+#ifndef __itkPointSetConvolutionImageFilter_hxx
+#define __itkPointSetConvolutionImageFilter_hxx
 
 #include "itkPointSetConvolutionImageFilter.h"
 #include "itkProgressReporter.h"
@@ -157,4 +157,4 @@ PointSetConvolutionImageFilter< TInputPointSet, TInputImage, TOutputImage >
 } // namespace itk
 
 
-#endif // __itkPointSetConvolutionImageFilter_txx
+#endif // __itkPointSetConvolutionImageFilter_hxx

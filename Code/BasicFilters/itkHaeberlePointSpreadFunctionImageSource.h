@@ -257,7 +257,7 @@ private:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkHaeberlePointSpreadFunctionImageSource.txx"
+#include "itkHaeberlePointSpreadFunctionImageSource.hxx"
 #endif
 
 #endif

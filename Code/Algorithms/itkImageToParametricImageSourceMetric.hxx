@@ -1,7 +1,7 @@
 /*=========================================================================
 
   Program:   Insight Segmentation & Registration Toolkit
-  Module:    $RCSfile: itkImageToParametricImageSourceMetric.txx,v $
+  Module:    $RCSfile: itkImageToParametricImageSourceMetric.hxx,v $
   Language:  C++
   Date:      $Date: 2009/09/17 20:30:15 $
   Version:   $Revision: 1.5 $
@@ -14,8 +14,8 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#ifndef __itkImageToParametricImageSourceMetric_txx
-#define __itkImageToParametricImageSourceMetric_txx
+#ifndef __itkImageToParametricImageSourceMetric_hxx
+#define __itkImageToParametricImageSourceMetric_hxx
 
 // First, make sure that we include the configuration file.
 // This line may be removed once the ThreadSafeTransform gets

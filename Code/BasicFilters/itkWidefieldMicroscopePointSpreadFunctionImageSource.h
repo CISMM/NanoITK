@@ -74,7 +74,7 @@ protected:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkWidefieldMicroscopePointSpreadFunctionImageSource.txx"
+#include "itkWidefieldMicroscopePointSpreadFunctionImageSource.hxx"
 #endif
 
 #endif // __itkWidefieldMicroscopePointSpreadFunctionImageSource_h

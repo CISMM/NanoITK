@@ -111,7 +111,7 @@ private:
 
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkModifiedGibsonLanniPointSpreadFunctionImageSource.txx"
+#include "itkModifiedGibsonLanniPointSpreadFunctionImageSource.hxx"
 #endif
 
 #endif

@@ -1,5 +1,5 @@
-#ifndef __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_txx
-#define __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_txx
+#ifndef __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_hxx
+#define __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_hxx
 
 #include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource.h"
 
@@ -286,4 +286,4 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource< TOutputImage >
 } // end namespace itk
 
 
-#endif // __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_txx
+#endif // __itkOPDBasedWidefieldMicroscopePointSpreadFunctionImageSource_hxx

@@ -14,8 +14,8 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#ifndef __itkPoissonNoiseImageToImageMetric_txx
-#define __itkPoissonNoiseImageToImageMetric_txx
+#ifndef __itkPoissonNoiseImageToImageMetric_hxx
+#define __itkPoissonNoiseImageToImageMetric_hxx
 
 // First make sure that the configuration is available.
 // This line can be removed once the optimized versions
@@ -23,7 +23,7 @@
 #include "itkConfigure.h"
 
 #ifdef ITK_USE_OPTIMIZED_REGISTRATION_METHODS
-//#include "itkOptPoissonNoiseImageToImageMetric.txx"
+//#include "itkOptPoissonNoiseImageToImageMetric.hxx"
 #else
 
 #include "itkPoissonNoiseImageToImageMetric.h"

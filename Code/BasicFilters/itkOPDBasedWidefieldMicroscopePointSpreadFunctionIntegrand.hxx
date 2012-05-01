@@ -15,8 +15,8 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_txx
-#define __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_txx
+#ifndef __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_hxx
+#define __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_hxx
 
 #include "itkOPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand.h"
 
@@ -127,4 +127,4 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionIntegrand< TParamRep >
 
 } // end namespace itk
 
-#endif // __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_txx
+#endif // __itkOPDBasedWidefieldMicroscopePointSpreadFunctionFunctor_hxx

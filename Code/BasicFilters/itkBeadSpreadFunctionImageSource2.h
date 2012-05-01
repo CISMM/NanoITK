@@ -203,7 +203,7 @@ private:
 } // end namespace itk
 
 #ifndef ITK_MANUAL_INSTANTIATION
-#include "itkBeadSpreadFunctionImageSource2.txx"
+#include "itkBeadSpreadFunctionImageSource2.hxx"
 #endif
 
 

@@ -294,6 +294,6 @@ private:
 }; // end class SphereConvolutionFilter
 } // end namespace itk
 
-#include "itkSphereConvolutionFilter.txx"
+#include "itkSphereConvolutionFilter.hxx"
 
 #endif // __itkSphereConvolutionFilter_h

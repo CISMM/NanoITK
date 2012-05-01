@@ -15,12 +15,12 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef __itkModifiedGibsonLanniPointSpreadFunctionImageSource_txx
-#define __itkModifiedGibsonLanniPointSpreadFunctionImageSource_txx
+#ifndef __itkModifiedGibsonLanniPointSpreadFunctionImageSource_hxx
+#define __itkModifiedGibsonLanniPointSpreadFunctionImageSource_hxx
 
 #include "itkModifiedGibsonLanniPointSpreadFunctionImageSource.h"
 
-#include "itkGibsonLanniPointSpreadFunctionImageSource.txx"
+#include "itkGibsonLanniPointSpreadFunctionImageSource.hxx"
 #include "itkGaussianImageSource.hxx"
 
 namespace itk
@@ -262,4 +262,4 @@ ModifiedGibsonLanniPointSpreadFunctionImageSource< TOutputImage >
 
 } // end namespace itk
 
-#endif // __itkModifiedGibsonLanniPointSpreadFunctionImageSource_txx
+#endif // __itkModifiedGibsonLanniPointSpreadFunctionImageSource_hxx

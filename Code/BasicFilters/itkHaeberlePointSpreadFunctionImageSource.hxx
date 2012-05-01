@@ -15,8 +15,8 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef __itkHaeberlePointSpreadFunctionImageSource_txx
-#define __itkHaeberlePointSpreadFunctionImageSource_txx
+#ifndef __itkHaeberlePointSpreadFunctionImageSource_hxx
+#define __itkHaeberlePointSpreadFunctionImageSource_hxx
 
 #include "itkHaeberlePointSpreadFunctionImageSource.h"
 #include "itkImageRegionIteratorWithIndex.h"

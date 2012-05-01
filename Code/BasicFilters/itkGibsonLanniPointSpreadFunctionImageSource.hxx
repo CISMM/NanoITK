@@ -17,8 +17,8 @@
      PURPOSE.  See the above copyright notices for more information.
 
 =========================================================================*/
-#ifndef __itkGibsonLanniPointSpreadFunctionImageSource_txx
-#define __itkGibsonLanniPointSpreadFunctionImageSource_txx
+#ifndef __itkGibsonLanniPointSpreadFunctionImageSource_hxx
+#define __itkGibsonLanniPointSpreadFunctionImageSource_hxx
 
 #include "itkGibsonLanniPointSpreadFunctionImageSource.h"
 #include "itkImageRegionIteratorWithIndex.h"

@@ -15,8 +15,8 @@
  *  limitations under the License.
  *
  *=========================================================================*/
-#ifndef _itkBeadSpreadFunctionImageSource2_txx
-#define _itkBeadSpreadFunctionImageSource2_txx
+#ifndef _itkBeadSpreadFunctionImageSource2_hxx
+#define _itkBeadSpreadFunctionImageSource2_hxx
 
 #include "itkBeadSpreadFunctionImageSource2.h"
 
@@ -526,4 +526,4 @@ BeadSpreadFunctionImageSource2< TOutputImage >
 
 } // end namespace itk
 
-#endif // _itkBeadSpreadFunctionImageSource2_txx
+#endif // _itkBeadSpreadFunctionImageSource2_hxx

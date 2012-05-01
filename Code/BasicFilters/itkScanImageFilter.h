@@ -132,6 +132,6 @@ private:
 }; // end class ScanImageFilter
 } // end namespace itk
 
-#include "itkScanImageFilter.txx"
+#include "itkScanImageFilter.hxx"
 
 #endif // __itkScanImageFilter_h
