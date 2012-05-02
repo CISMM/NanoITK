@@ -143,7 +143,7 @@ public:
 
     double r = sqrt(m_X*m_X + m_Y*m_Y);
     ComplexType uniqueTerm = tii1p(0, n, theta) * tii1p(1, n, theta) *
-      cos(theta[2]) * j1(this->k_1*r*sin(theta_1));
+      sin(theta[2]) * j1(this->k_1*r*sin(theta_1));
 
     return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
   }
