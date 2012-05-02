@@ -82,7 +82,7 @@ protected:
       / m_NumericalAperture;
     ComplexType I(0.0, 1.0);
     ComplexType c1 = sqrt(cos(theta_1)) * sin(theta_1);
-    ComplexType c2 = exp(I*k_0*OPD(rho, z));
+    ComplexType c2 = exp(I*k_0*this->OPD(rho, z));
 
     return c1 * c2;
   }
