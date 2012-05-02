@@ -41,27 +41,26 @@ public:
 
     // k_0 is not defined in the paper. I'm assuming it is the
     // wavenumber of the emission wavelength in vacuum.
-    this->k_0 = 2.0 * itk::Math::pi / (this->m_EmissionWavelength * 1e-9);
+    this->k_0 = 2.0 * itk::Math::pi / (m_EmissionWavelength * 1e-9);
 
-    this->k_1 = this->k_0 * this->m_ActualCoverSlipRefractiveIndex;
+    this->k_1 = this->k_0 * m_ActualCoverSlipRefractiveIndex;
   }
 
 protected:
   double k_0;
   double k_1;
 
-protected:
   inline double Theta2(double theta_1) const
   {
-    double n1 = this->m_ActualImmersionOilRefractiveIndex;
-    double n2 = this->m_ActualCoverSlipRefractiveIndex;
+    double n1 = m_ActualImmersionOilRefractiveIndex;
+    double n2 = m_ActualCoverSlipRefractiveIndex;
     return asin(n1*sin(theta_1) / n2);
   }
 
   inline double Theta3(double theta_2) const
   {
-    double n2 = this->m_ActualCoverSlipRefractiveIndex;
-    double n3 = this->m_ActualSpecimenLayerRefractiveIndex;
+    double n2 = m_ActualCoverSlipRefractiveIndex;
+    double n3 = m_ActualSpecimenLayerRefractiveIndex;
     return asin(n2*sin(theta_2) / n3);
   }
 
@@ -79,8 +78,8 @@ protected:
 
   inline ComplexType CommonTerms(double theta_1, double z) const
   {
-    double rho = this->m_ActualImmersionOilRefractiveIndex * sin(theta_1)
-      / this->m_NumericalAperture;
+    double rho = m_ActualImmersionOilRefractiveIndex * sin(theta_1)
+      / m_NumericalAperture;
     ComplexType I(0.0, 1.0);
     ComplexType c1 = sqrt(cos(theta_1)) * sin(theta_1);
     ComplexType c2 = exp(I*k_0*OPD(rho, z));
@@ -90,9 +89,9 @@ protected:
 
   inline void AssembleIndicesOfRefraction(double n[3]) const
   {
-    n[0] = this->m_ActualImmersionOilRefractiveIndex;
-    n[1] = this->m_ActualCoverSlipRefractiveIndex;
-    n[2] = this->m_ActualSpecimenLayerRefractiveIndex;
+    n[0] = m_ActualImmersionOilRefractiveIndex;
+    n[1] = m_ActualCoverSlipRefractiveIndex;
+    n[2] = m_ActualSpecimenLayerRefractiveIndex;
   }
 
   inline void AssembleAnglesOfIncidence(double theta_1, double theta[3]) const
@@ -118,13 +117,13 @@ public:
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
-    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
+    double r = sqrt(m_X*m_X + m_Y*m_Y);
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) +
        tii1p(0, n, theta) * tii1p(1, n, theta)*cos(theta[2])) *
       j0(this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
+    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
   }
 
 };
@@ -142,11 +141,11 @@ public:
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
-    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
+    double r = sqrt(m_X*m_X + m_Y*m_Y);
     ComplexType uniqueTerm = tii1p(0, n, theta) * tii1p(1, n, theta) *
       cos(theta[2]) * j1(this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
+    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
   }
 
 };
@@ -164,13 +163,13 @@ public:
     this->AssembleIndicesOfRefraction(n);
     this->AssembleAnglesOfIncidence(theta_1, theta);
 
-    double r = sqrt(this->m_X*this->m_X + this->m_Y*this->m_Y);
+    double r = sqrt(m_X*m_X + m_Y*m_Y);
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) -
        tii1p(0, n, theta) * tii1p(1, n, theta) * cos(theta[2])) *
       jn(2, this->k_1*r*sin(theta_1));
 
-    return this->CommonTerms(theta_1, this->m_Z) * uniqueTerm;
+    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
   }
 
 };
@@ -243,16 +242,16 @@ protected:
                                     ThreadIdType threadId );
 
   /** Computes the light intensity at a specified point. */
-  double ComputeSampleValue(const PointType& point);
+  double ComputeSampleValue(const PointType& point, ThreadIdType threadId);
 
 private:
   HaeberlePointSpreadFunctionImageSource(const HaeberlePointSpreadFunctionImageSource&); //purposely not implemented
   void operator=(const HaeberlePointSpreadFunctionImageSource&); //purposely not implemented
 
-  FunctorTypeI0ill m_I0illFunctor;
-  FunctorTypeI1ill m_I1illFunctor;
-  FunctorTypeI2ill m_I2illFunctor;
-
+  // Arrays of functors, one for each thread.
+  std::vector<FunctorTypeI0ill *> m_I0illFunctors;
+  std::vector<FunctorTypeI1ill *> m_I1illFunctors;
+  std::vector<FunctorTypeI2ill *> m_I2illFunctors;
 };
 } // end namespace itk
 
