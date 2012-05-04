@@ -61,7 +61,8 @@ protected:
   {
     double n2 = m_ActualCoverSlipRefractiveIndex;
     double n3 = m_ActualSpecimenLayerRefractiveIndex;
-    return asin(n2*sin(theta_2) / n3);
+    double candidate = asin(n2*sin(theta_2) / n3);
+    return candidate;
   }
 
   inline double tii1s(int i, double n[3], double theta[3]) const
@@ -94,11 +95,18 @@ protected:
     n[2] = m_ActualSpecimenLayerRefractiveIndex;
   }
 
-  inline void AssembleAnglesOfIncidence(double theta_1, double theta[3]) const
+  inline void AssembleAnglesOfIncidence(double rho, double theta[3]) const
   {
-    theta[0] = theta_1;
-    theta[1] = Theta2(theta_1);
-    theta[2] = Theta3(theta[1]);
+    double ctheta1 = sqrt(1 - rho/(m_ActualImmersionOilRefractiveIndex * m_ActualImmersionOilRefractiveIndex));
+    double stheta1 = sqrt(1 - ctheta1*ctheta1);
+    double stheta2 = stheta1 * m_ActualImmersionOilRefractiveIndex / m_ActualCoverSlipRefractiveIndex;
+    double ctheta2 = sqrt(1 - stheta2*stheta2);
+    double stheta3 = stheta1 * m_ActualImmersionOilRefractiveIndex / m_ActualSpecimenLayerRefractiveIndex;
+    double ctheta3 = sqrt(1 - stheta3*stheta3);
+
+    theta[0] = acos(ctheta1);
+    theta[1] = acos(ctheta2);
+    theta[2] = acos(ctheta3);
   }
 
 };
@@ -111,19 +119,20 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double theta_1) const
+  ComplexType operator()(double rho) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
-    this->AssembleAnglesOfIncidence(theta_1, theta);
 
     double r = sqrt(m_X*m_X + m_Y*m_Y);
+    this->AssembleAnglesOfIncidence(r, theta);
+
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) +
        tii1p(0, n, theta) * tii1p(1, n, theta)*cos(theta[2])) *
-      j0(this->k_1*r*sin(theta_1));
+      j0(this->k_1*r*sin(theta[0]));
 
-    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
+    return this->CommonTerms(theta[0], m_Z) * uniqueTerm;
   }
 
 };
@@ -135,17 +144,18 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double theta_1) const
+  ComplexType operator()(double rho) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
-    this->AssembleAnglesOfIncidence(theta_1, theta);
 
     double r = sqrt(m_X*m_X + m_Y*m_Y);
-    ComplexType uniqueTerm = tii1p(0, n, theta) * tii1p(1, n, theta) *
-      sin(theta[2]) * j1(this->k_1*r*sin(theta_1));
+    this->AssembleAnglesOfIncidence(r, theta);
 
-    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
+    ComplexType uniqueTerm = tii1p(0, n, theta) * tii1p(1, n, theta) *
+      sin(theta[2]) * j1(this->k_1*r*sin(theta[0]));
+
+    return this->CommonTerms(theta[0], m_Z) * uniqueTerm;
   }
 
 };
@@ -157,19 +167,19 @@ public:
 
   typedef HaeberlePointSpreadFunctionCommon::ComplexType ComplexType;
 
-  ComplexType operator()(double theta_1) const
+  ComplexType operator()(double rho) const
   {
     double n[3], theta[3];
     this->AssembleIndicesOfRefraction(n);
-    this->AssembleAnglesOfIncidence(theta_1, theta);
 
     double r = sqrt(m_X*m_X + m_Y*m_Y);
+    this->AssembleAnglesOfIncidence(r, theta);
     ComplexType uniqueTerm =
       (tii1s(0, n, theta) * tii1s(1, n, theta) -
        tii1p(0, n, theta) * tii1p(1, n, theta) * cos(theta[2])) *
-      jn(2, this->k_1*r*sin(theta_1));
+      jn(2, this->k_1*r*sin(theta[0]));
 
-    return this->CommonTerms(theta_1, m_Z) * uniqueTerm;
+    return this->CommonTerms(theta[0], m_Z) * uniqueTerm;
   }
 
 };

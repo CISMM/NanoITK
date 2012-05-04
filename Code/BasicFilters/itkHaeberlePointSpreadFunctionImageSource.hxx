@@ -118,11 +118,12 @@ double
 HaeberlePointSpreadFunctionImageSource<TOutputImage>
 ::ComputeSampleValue(const PointType& point, ThreadIdType threadId)
 {
+  // Convert from nanometers to meters
   PixelType px = point[0] * 1e-9;
   PixelType py = point[1] * 1e-9;
   PixelType pz = point[2] * 1e-9;
 
-  /* Compute terms that are independent of terms within the integral. */
+  // Compute terms that are independent of terms within the integral
   double mag = this->m_Magnification;
 
   // We have to convert to coordinates of the detector points
@@ -143,8 +144,10 @@ HaeberlePointSpreadFunctionImageSource<TOutputImage>
   // the angle of incidence in the immersion oil layer that yields a
   // 90 degrees angle of incidence in the specimen layer makes the
   // integral computable.
-  double alpha = std::min(asin(this->m_NumericalAperture / this->m_ActualImmersionOilRefractiveIndex),
-                          asin(this->m_ActualSpecimenLayerRefractiveIndex / this->m_ActualImmersionOilRefractiveIndex));
+  //double alpha = std::min(asin(this->m_NumericalAperture / this->m_ActualImmersionOilRefractiveIndex),
+  //                        asin(this->m_ActualSpecimenLayerRefractiveIndex
+  // / this->m_ActualImmersionOilRefractiveIndex));
+  double alpha = this->m_NumericalAperture*this->m_NumericalAperture;
   ComplexType I0ill = this->Integrate(*m_I0illFunctors[threadId], 0.0, alpha, 20);
   ComplexType I1ill = this->Integrate(*m_I1illFunctors[threadId], 0.0, alpha, 20);
   ComplexType I2ill = this->Integrate(*m_I2illFunctors[threadId], 0.0, alpha, 20);
