@@ -92,7 +92,7 @@ public:
   typedef InputImageSizeType                        SizeType;
   typedef typename SizeType::SizeValueType          SizeValueType;
 
-  typedef Function::SumAccumulator<InputImagePixelType,OutputImagePixelType>
+  typedef Functor::SumAccumulator<InputImagePixelType,OutputImagePixelType>
     AccumulatorType;
   typedef ScanImageFilter<InputImageType, InputImageType, AccumulatorType>
     ScanImageFilterType;
@@ -279,7 +279,7 @@ protected:
   virtual void BeforeThreadedGenerateData();
 
   virtual void ThreadedGenerateData
-    (const OutputImageRegionType& outputRegionForThread, int threadId);
+    (const OutputImageRegionType& outputRegionForThread, ThreadIdType threadId);
 
   /** Computes the light intensity at a specified point. */
   double ComputeSampleValue(OutputImagePointType& point);

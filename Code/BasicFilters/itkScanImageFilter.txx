@@ -108,9 +108,9 @@ ScanImageFilter<TInputImage,TOutputImage,TAccumulator>
 
 //----------------------------------------------------------------------------
 template <class TInputImage, class TOutputImage, class TAccumulator>
-int
+unsigned int
 ScanImageFilter<TInputImage,TOutputImage,TAccumulator>
-::SplitRequestedRegion(int i, int num, OutputImageRegionType& splitRegion)
+::SplitRequestedRegion(unsigned int i, unsigned int num, OutputImageRegionType& splitRegion)
 {
   // Get the output pointer
   OutputImageType * outputPtr = this->GetOutput();
@@ -180,7 +180,7 @@ template <class TInputImage, class TOutputImage, class TAccumulator>
 void
 ScanImageFilter<TInputImage,TOutputImage,TAccumulator>
 ::ThreadedGenerateData(const OutputImageRegionType& outputRegionForThread,
-		       int threadId)
+		       ThreadIdType threadId)
 {
   // Use the output image to report the progress. This should be set
   // to the number of lines.
