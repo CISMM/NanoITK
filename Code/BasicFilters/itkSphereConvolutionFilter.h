@@ -92,7 +92,7 @@ public:
   typedef InputImageSizeType                        SizeType;
   typedef typename SizeType::SizeValueType          SizeValueType;
 
-  typedef Function::SumAccumulator<InputImagePixelType,OutputImagePixelType>
+  typedef Functor::SumAccumulator<InputImagePixelType,OutputImagePixelType>
     AccumulatorType;
   typedef ScanImageFilter<InputImageType, InputImageType, AccumulatorType>
     ScanImageFilterType;

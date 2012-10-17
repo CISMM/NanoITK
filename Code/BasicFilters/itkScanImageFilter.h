@@ -114,10 +114,10 @@ protected:
      InputImageRegionType& inputRegion);
 
   /** Split the region into slices orthogonal to the scan direction. */
-  virtual int SplitRequestedRegion(int i, int num, OutputImageRegionType& splitRegion);
+  virtual unsigned int SplitRequestedRegion(unsigned int i, unsigned int num, OutputImageRegionType& splitRegion);
 
   virtual void ThreadedGenerateData(
-    const OutputImageRegionType& outputRegionForThread, ThreadTypeId threadId);
+    const OutputImageRegionType& outputRegionForThread, ThreadIdType threadId);
 
   virtual AccumulatorType NewAccumulator(unsigned long) const;
 
