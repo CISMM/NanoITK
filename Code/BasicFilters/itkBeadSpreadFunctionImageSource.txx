@@ -291,7 +291,10 @@ BeadSpreadFunctionImageSource< TOutputImage >
     }
   else
     {
-    this->m_KernelSource->SetParameter(index - numberOfBSFParameters, value);
+    typename KernelImageSourceType::ParametersType parameters =
+      this->m_KernelSource->GetParameters();
+    parameters[index-numberOfBSFParameters] = value;
+    this->m_KernelSource->SetParameters(parameters);
     }
 }
 
@@ -347,7 +350,7 @@ BeadSpreadFunctionImageSource< TOutputImage >
     }
   else
     {
-    return this->m_KernelSource->GetParameter(index - numberOfBSFParameters);
+    return this->m_KernelSource->GetParameters()[index - numberOfBSFParameters];
     }
 }
 
