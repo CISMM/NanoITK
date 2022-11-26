@@ -190,9 +190,9 @@ OPDBasedWidefieldMicroscopePointSpreadFunctionImageSource<TOutputImage>
 {
   int index = 0;
 
-  SetEmissionWavelength(parameters[index++]);
-  SetNumericalAperture(parameters[index++]);
-  SetMagnification(parameters[index++]);
+  this->SetEmissionWavelength(parameters[index++]);
+  this->SetNumericalAperture(parameters[index++]);
+  this->SetMagnification(parameters[index++]);
 
   SetDesignCoverSlipRefractiveIndex(parameters[index++]);
   SetActualCoverSlipRefractiveIndex(parameters[index++]);
