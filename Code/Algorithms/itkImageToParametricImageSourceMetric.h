@@ -24,7 +24,7 @@
 
 #include "itkArray.h"
 #include "itkCostFunction.h"
-#include "itkExceptionObject.h"
+#include "itkMacro.h"
 #include "itkIdentityTransform.h"
 #include "itkImageBase.h"
 #include "itkImageToImageMetric.h"
